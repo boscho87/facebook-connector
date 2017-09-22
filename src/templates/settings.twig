@@ -1,0 +1,25 @@
+{#
+/**
+ * FacebookConnector plugin for Craft CMS 3.x
+ *
+ * FacebookConnector Settings.twig
+ *
+ * @author    Simon Müller itsCoding
+ * @copyright Copyright (c) 2017 Simon Müller itsCoding
+ * @link      https://www.itscoding.ch
+ * @package   FacebookConnector
+ * @since     0.1.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("boscho87fbconn\\facebookconnector\\assetbundles\\facebookconnector\\FacebookConnectorAsset") %}
+
+{{ forms.textField({
+    label: 'Some Field',
+    instructions: 'Enter some setting here.',
+    id: 'someAttribute',
+    name: 'someAttribute',
+    value: settings['someAttribute']})
+}}

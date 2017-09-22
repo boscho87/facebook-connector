@@ -1,0 +1,52 @@
+{
+    "name": "boscho87fbconn/facebook-connector",
+    "description": "Connect a Website to an Facbook Page",
+    "type": "craft-plugin",
+    "version": "0.1.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "facebookconnector"
+    ],
+    "support": {
+        "docs": "https://github.com/boscho87/facebook-connector/blob/master/README.md",
+        "issues": "https://github.com/boscho87/facebook-connector/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Müller itsCoding",
+            "homepage": "https://www.itscoding.ch"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "~3.0.0-beta.23",
+        "facebook/graph-sdk": "^5.6"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "boscho87fbconn\\facebookconnector\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "FacebookConnector",
+        "handle": "facebook-connector",
+        "schemaVersion": "0.1.0",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/master/CHANGELOG.md",
+        "components": {
+            "entryPoster": "boscho87fbconn\\facebookconnector\\services\\EntryPoster",
+            "eventFetcher": "boscho87fbconn\\facebookconnector\\services\\EventFetcher"
+        },
+        "class": "boscho87fbconn\\facebookconnector\\FacebookConnector"
+    }
+}

@@ -1,0 +1,19 @@
+{#
+/**
+ * FacebookConnector plugin for Craft CMS
+ *
+ * LastUpdateWidget Widget Body
+ *
+ * @author    Simon Müller itsCoding
+ * @copyright Copyright (c) 2017 Simon Müller itsCoding
+ * @link      https://www.itscoding.ch
+ * @package   FacebookConnector
+ * @since     0.1.0
+ */
+#}
+
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@boscho87fbconn/facebookconnector/assetbundles/lastupdatewidgetwidget/dist', true) ~ '/img/LastUpdateWidget-icon.svg' %}
+
+<img src="{{ iconUrl }}" height="64" width="64" />
+
+<p>{{ message }}</p>
