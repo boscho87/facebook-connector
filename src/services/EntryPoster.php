@@ -15,6 +15,7 @@ use boscho87fbconn\facebookconnector\FacebookConnector;
 use boscho87fbconn\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
+use craft\records\Element;
 use Facebook\Authentication\AccessToken;
 
 
@@ -70,8 +71,11 @@ class EntryPoster extends Component
             } elseif (($postId = $this->entryChanged($entry->getId(), $checkSum))) {
                 $updated = $this->updatePost($postId, $postData, $token);
                 if (!$updated) {
-                    //Todo handle the case if update is failed
-                    //Todo set the post_on_facebook to false to avoid to post this again if its unwanted
+                    //Todo translate
+                    \Craft::$app->session->setError(
+                        'Post to update not found, deleted reference and set post_on_facebook to false'
+                    );
+                    //Todo set the post_on_facebook and save the entry
                     return false;
                 }
                 $this->saveCheckSum($checkSum, $entry->getId(), $postId);
@@ -108,7 +112,7 @@ class EntryPoster extends Component
      * @param AccessToken $token
      * @return mixed string|null
      */
-    private function sendRequest(string $endPoint, array $postData, AccessToken $token, $entryId = null)
+    private function sendRequest(string $endPoint, array $postData, AccessToken $token)
     {
         try {
             $fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
@@ -120,6 +124,7 @@ class EntryPoster extends Component
             //if its a new post return the id of the created post
             return $response->getDecodedBody()['id'] ?? true;
         } catch (\Exception $e) {
+            //the endpoint is the facebook if (on update)
             $this->removeCheckSum($endPoint);
             return false;
         }
