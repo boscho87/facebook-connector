@@ -81,13 +81,14 @@ class FacebookConnector extends Plugin
      */
     public function init()
     {
+
         parent::init();
         self::$plugin = $this;
-
         // Add in our console commands
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'boscho87fbconn\facebookconnector\console\controllers';
         }
+
 
         $this->setComponents([
                 'tokenLoader' => TokenLoader::class,

@@ -15,7 +15,6 @@ use boscho87fbconn\facebookconnector\FacebookConnector;
 use boscho87fbconn\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
-use craft\records\Element;
 use Facebook\Authentication\AccessToken;
 
 
@@ -40,15 +39,23 @@ class EntryPoster extends Component
      */
     private function getPostData(Entry $entry)
     {
-        return [
-            'post_on_facebook' => $entry->post_on_facebook,
-            'entry_id' => $entry->id,
-            'message' => $entry->subTitle,
+        try {
+            $config = include \Craft::$app->vendorPath . '/../' . 'fieldconfig.php';
+        } catch (\Exception $e) {
+            $config = function () {
+                return [];
+            };
+        }
+        $default = [
+            'post_on_facebook' => $entry->post_on_facebook ?? true,
             'link' => $entry->getUrl(),
-            'picture' => (count($entry->fb_image) > 0) ? FacebookConnector::getBaseUrl() . $entry->fb_image->first()->getUrl() : '',
-            'caption' => $entry->getAuthor()->getName(),
-            'description' => $entry->teaserSubTitle
+            'entry_id' => $entry->id,
+            'message' => $entry->subTitle ?? '',
+            'picture' => '',
+            'caption' => '',
+            'description' => ''
         ];
+        return array_merge($default, $config($entry));
     }
 
     /**
