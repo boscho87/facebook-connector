@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\console\controllers;
+namespace itscoding\facebookconnector\console\controllers;
 
-use boscho87fbconn\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\FacebookConnector;
 
 use Craft;
 use yii\console\Controller;

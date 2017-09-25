@@ -8,17 +8,17 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector;
+namespace itscoding\facebookconnector;
 
-use boscho87fbconn\facebookconnector\services\EntryPoster as EntryPosterService;
-use boscho87fbconn\facebookconnector\services\EventFetcher as EventFetcherService;
-use boscho87fbconn\facebookconnector\services\TokenLoader as TokenLoaderService;
-use boscho87fbconn\facebookconnector\services\EntryPoster;
-use boscho87fbconn\facebookconnector\services\EventFetcher;
-use boscho87fbconn\facebookconnector\models\Settings;
-use boscho87fbconn\facebookconnector\services\TokenLoader;
+use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
+use itscoding\facebookconnector\services\EventFetcher as EventFetcherService;
+use itscoding\facebookconnector\services\TokenLoader as TokenLoaderService;
+use itscoding\facebookconnector\services\EntryPoster;
+use itscoding\facebookconnector\services\EventFetcher;
+use itscoding\facebookconnector\models\Settings;
+use itscoding\facebookconnector\services\TokenLoader;
 
-use boscho87fbconn\facebookconnector\widgets\OAuth;
+use itscoding\facebookconnector\widgets\OAuth;
 use Craft;
 use craft\base\Plugin;
 use craft\elements\Entry;
@@ -86,7 +86,7 @@ class FacebookConnector extends Plugin
         self::$plugin = $this;
         // Add in our console commands
         if (Craft::$app instanceof ConsoleApplication) {
-            $this->controllerNamespace = 'boscho87fbconn\facebookconnector\console\controllers';
+            $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
 
         $this->setComponents([

@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\services;
+namespace itscoding\facebookconnector\services;
 
-use boscho87fbconn\facebookconnector\FacebookConnector;
-use boscho87fbconn\facebookconnector\records\AccessToken;
+use itscoding\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\records\AccessToken;
 use Craft;
 use Facebook\Authentication\AccessToken as FBAccessToken;
 use Facebook\Authentication\OAuth2Client;

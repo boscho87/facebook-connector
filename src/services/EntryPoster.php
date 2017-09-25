@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\services;
+namespace itscoding\facebookconnector\services;
 
 
-use boscho87fbconn\facebookconnector\FacebookConnector;
-use boscho87fbconn\facebookconnector\records\PostMemorize;
+use itscoding\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
 use Facebook\Authentication\AccessToken;

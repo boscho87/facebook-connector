@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\widgets;
+namespace itscoding\facebookconnector\widgets;
 
-use boscho87fbconn\facebookconnector\assetbundles\oauthwidget\OAuthWidgetAsset;
-use boscho87fbconn\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\assetbundles\oauthwidget\OAuthWidgetAsset;
+use itscoding\facebookconnector\FacebookConnector;
 
 
 use Craft;
@@ -60,7 +60,7 @@ class OAuth extends Widget
      */
     public static function iconPath()
     {
-        return Craft::getAlias("@boscho87fbconn/facebookconnector/assetbundles/oauthwidget/dist/img/OAuthWidget-icon.svg");
+        return Craft::getAlias("@itscoding/facebookconnector/assetbundles/oauthwidget/dist/img/OAuthWidget-icon.svg");
     }
 
     /**

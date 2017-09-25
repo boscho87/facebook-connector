@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\models;
+namespace itscoding\facebookconnector\models;
 
 
 use craft\base\Model;

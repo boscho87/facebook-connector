@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2017 boscho87\itscoding
  */
 
-namespace boscho87fbconn\facebookconnector\migrations;
+namespace itscoding\facebookconnector\migrations;
 
 
 use Craft;
