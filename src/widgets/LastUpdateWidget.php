@@ -11,7 +11,7 @@
 namespace boscho87fbconn\facebookconnector\widgets;
 
 use boscho87fbconn\facebookconnector\FacebookConnector;
-use boscho87fbconn\facebookconnector\assetbundles\lastupdatewidgetwidget\LastUpdateWidgetWidgetAsset;
+use boscho87fbconn\facebookconnector\assetbundles\lastupdatewidgetwidget\OAuthWidgetAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -209,7 +209,7 @@ class LastUpdateWidget extends Widget
      */
     public function getBodyHtml()
     {
-        Craft::$app->getView()->registerAssetBundle(LastUpdateWidgetWidgetAsset::class);
+        Craft::$app->getView()->registerAssetBundle(OAuthWidgetAsset::class);
 
         return Craft::$app->getView()->renderTemplate(
             'facebook-connector/_components/widgets/LastUpdateWidget_body',

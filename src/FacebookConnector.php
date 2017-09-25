@@ -19,6 +19,7 @@ use boscho87fbconn\facebookconnector\services\EventFetcher;
 use boscho87fbconn\facebookconnector\models\Settings;
 use boscho87fbconn\facebookconnector\services\TokenLoader;
 
+use boscho87fbconn\facebookconnector\widgets\OAuth;
 use Craft;
 use craft\base\Plugin;
 use craft\elements\Entry;
@@ -131,6 +132,7 @@ class FacebookConnector extends Plugin
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
                 $event->types[] = LastUpdateWidgetWidget::class;
+                $event->types[] = OAuth::class;
             }
         );
 
