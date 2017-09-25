@@ -37,7 +37,7 @@ add the file fieldconfig.php an return a callable that returns an array
 `/var/www/htdocs/craft/fieldconfig.php`
 
 <?php
-use boscho87fbconn\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\FacebookConnector;
 use craft\elements\Entry;
 
 return function (Entry $entry) {
@@ -70,10 +70,7 @@ return function (Entry $entry) {
 
 Some things to do:
 
-* Create a widget to watch the token status
-* Create Templates for the auth process
 * Create a translation for the german language
-* Rename the vendor to itscoding (from boscho87fbconn)
 * Crate a cool Icon
 * Testing
 * Bugfixing

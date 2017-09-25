@@ -6,7 +6,7 @@
  * Time: 16:43
  */
 
-namespace boscho87fbconn\facebookconnector\records;
+namespace itscoding\facebookconnector\records;
 
 
 use craft\db\ActiveRecord;

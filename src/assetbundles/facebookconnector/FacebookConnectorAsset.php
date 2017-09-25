@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\assetbundles\FacebookConnector;
+namespace itscoding\facebookconnector\assetbundles\FacebookConnector;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -43,7 +43,7 @@ class FacebookConnectorAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@boscho87fbconn/facebookconnector/assetbundles/facebookconnector/dist";
+        $this->sourcePath = "@itscoding/facebookconnector/assetbundles/facebookconnector/dist";
 
         // define the dependencies
         $this->depends = [

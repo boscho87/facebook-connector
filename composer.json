@@ -1,6 +1,6 @@
 {
-    "name": "boscho87fbconn/facebook-connector",
-    "description": "Connect a Website to a Facebook Page",
+    "name": "itscoding/facebook-connector",
+    "description": "Connect a Website to an Facbook Page",
     "type": "craft-plugin",
     "version": "0.12.0",
     "keywords": [
@@ -33,7 +33,7 @@
     ],
     "autoload": {
         "psr-4": {
-          "boscho87fbconn\\facebookconnector\\": "src/"
+          "itscoding\\facebookconnector\\": "src/"
         }
     },
     "extra": {
@@ -44,9 +44,9 @@
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/master/CHANGELOG.md",
         "components": {
-            "entryPoster": "boscho87fbconn\\facebookconnector\\services\\EntryPoster",
-            "eventFetcher": "boscho87fbconn\\facebookconnector\\services\\EventFetcher"
+            "entryPoster": "itscoding\\facebookconnector\\services\\EntryPoster",
+            "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher"
         },
-        "class": "boscho87fbconn\\facebookconnector\\FacebookConnector"
+        "class": "itscoding\\facebookconnector\\FacebookConnector"
     }
 }

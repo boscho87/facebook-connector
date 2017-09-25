@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\assetbundles\oauthwidget;
+namespace itscoding\facebookconnector\assetbundles\oauthwidget;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -43,7 +43,7 @@ class OAuthWidgetAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@boscho87fbconn/facebookconnector/assetbundles/oauthwidget/dist";
+        $this->sourcePath = "@itscoding/facebookconnector/assetbundles/oauthwidget/dist";
 
         // define the dependencies
         $this->depends = [
