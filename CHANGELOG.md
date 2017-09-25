@@ -10,8 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## v0.11.0 - 2017-09-25
 ### Added
-  - Bolerplate code added for the widget
-
+  - Boilerplate code added for the widget
 
 ## v0.10.0 - 2017-09-25
 ### Added
@@ -23,11 +22,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## v0.8.0 - 2017-09-24
 ### Changed
-   - Changed the readme and added som informations about the project
+   - Changed the readme and added som information's about the project
 
 ## v0.7.0 - 2017-09-22
 ### Added
-  - Implemented OAusth Login
+  - Implemented OAuth Login
   - Implemented post to facebook
   - Implemented update a post on facebook
 
