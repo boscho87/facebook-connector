@@ -188,15 +188,15 @@ class TokenLoader extends Component
     }
 
     /**
-     * @param $fb
+     * @param $facebook
      * @param $accessToken
      * @param $config
      * @return mixed
      */
-    private function validateToken(Facebook $fb, FBAccessToken $accessToken)
+    private function validateToken(Facebook $facebook, FBAccessToken $accessToken)
     {
         // The OAuth 2.0 client handler helps us manage access tokens
-        $oAuth2Client = $fb->getOAuth2Client();
+        $oAuth2Client = $facebook->getOAuth2Client();
         // Get the access token metadata from /debug_token
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
         // Validation (these will throw FacebookSDKException's when they fail)
@@ -229,8 +229,8 @@ class TokenLoader extends Component
      */
     public function exchangePageToken(FBAccessToken $accessToken)
     {
-        $fb = $this->getFacebookInstance();
-        $response = $fb->get($this->pageId . '?fields=access_token', $accessToken);
+        $facebook = $this->getFacebookInstance();
+        $response = $facebook->get($this->pageId . '?fields=access_token', $accessToken);
         return $response->getDecodedBody()['access_token'];
     }
 
