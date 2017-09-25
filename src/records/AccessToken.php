@@ -49,5 +49,4 @@ class AccessToken extends ActiveRecord
     {
         return '{{%facebookconnector_accesstoken}}';
     }
-
 }

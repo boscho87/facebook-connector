@@ -10,13 +10,11 @@
 
 namespace itscoding\facebookconnector\services;
 
-
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
 use Facebook\Authentication\AccessToken;
-
 
 /**
  * EntryPoster Service
@@ -122,8 +120,8 @@ class EntryPoster extends Component
     private function sendRequest(string $endPoint, array $postData, AccessToken $token)
     {
         try {
-            $fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
-            $response = $fb->post(
+            $facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+            $response = $facebook->post(
                 $endPoint,
                 $postData,
                 FacebookConnector::$plugin->tokenLoader->exchangePageToken($token)
@@ -153,9 +151,9 @@ class EntryPoster extends Component
         $postMemorize->checksum = $checkSum;
         if ($postMemorize->isNewRecord) {
             $postMemorize->save();
-        } else {
-            $postMemorize->update();
+            return;
         }
+        $postMemorize->update();
     }
 
     /**
@@ -164,7 +162,10 @@ class EntryPoster extends Component
     private function removeCheckSum(string $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['facebookId' => $facebookId]);
-        return $postMemorize->delete();
+        if ($postMemorize) {
+            return $postMemorize->delete();
+        }
+        return false;
     }
 
     /**
@@ -201,5 +202,4 @@ class EntryPoster extends Component
         var_dump($token, 'no token found');
         return false;
     }
-
 }

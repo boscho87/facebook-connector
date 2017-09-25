@@ -14,7 +14,6 @@ use itscoding\facebookconnector\FacebookConnector;
 
 use craft\base\Component;
 
-
 /**
  * EventFetcher Service
  *
@@ -52,6 +51,4 @@ class EventFetcher extends Component
 
         return $result;
     }
-
-
 }

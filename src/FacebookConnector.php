@@ -88,13 +88,11 @@ class FacebookConnector extends Plugin
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
-
         $this->setComponents([
                 'tokenLoader' => TokenLoader::class,
                 'entryPoster' => EntryPoster::class,
                 'eventFetcher' => EventFetcher::class
-            ]
-        );
+            ]);
 
         Event::on(
             Entry::class,
@@ -133,11 +131,10 @@ class FacebookConnector extends Plugin
                 if (Craft::$app->request->get('code')) {
                     FacebookConnector::$plugin->tokenLoader->handleCallback();
                     $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
-                    if (count($errors) > 0) {
-                        Craft::$app->session->setError(implode(' ', $errors));
-                    } else {
+                    if (!count($errors) > 0) {
                         Craft::$app->session->setNotice('Loaded a Valid Token');
                     }
+                    Craft::$app->session->setError(implode(' ', $errors));
                 }
                 $event->types[] = OAuth::class;
             }
@@ -210,14 +207,4 @@ class FacebookConnector extends Plugin
             ]
         );
     }
-
-    /**
-     * @return string
-     */
-    public static function getBaseUrl()
-    {
-        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
-    }
-
-
 }

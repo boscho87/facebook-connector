@@ -58,7 +58,7 @@ class TokenLoader extends Component
         $this->appSecret = $settings->appSecret;
         $this->apiVersion = $settings->apiVersion;
         $this->pageId = $settings->pageId;
-        $this->baseUrl = FacebookConnector::getBaseUrl();
+        $this->baseUrl = Craft::$app->request->getHostInfo();
     }
 
     /**
@@ -84,9 +84,9 @@ class TokenLoader extends Component
      */
     public function getLoginUrl()
     {
-        $fb = $this->getFacebookInstance();
-        $helper = $fb->getRedirectLoginHelper();
-        $cpTrigger = Craft::$app->config->getConfigSettings('general')->cpTrigger;
+        $facebook = $this->getFacebookInstance();
+        $helper = $facebook->getRedirectLoginHelper();
+        $cpTrigger = '/' . Craft::$app->config->getConfigSettings('general')->cpTrigger;
         return $helper->getLoginUrl(
             $this->baseUrl . $cpTrigger . '/dashboard',
             $this->facebookPermissions
@@ -100,11 +100,11 @@ class TokenLoader extends Component
      */
     public function handleCallback()
     {
-        $fb = $this->getFacebookInstance();
-        $helper = $fb->getRedirectLoginHelper();
+        $facebook = $this->getFacebookInstance();
+        $helper = $facebook->getRedirectLoginHelper();
         $accessToken = $this->getShortLivingAccessToken($helper);
         if ($accessToken) {
-            $oAuth2Client = $this->validateToken($fb, $accessToken);
+            $oAuth2Client = $this->validateToken($facebook, $accessToken);
             $accessToken = $this->exchangeShortLivingToken($accessToken, $oAuth2Client);
             $this->storeToken($accessToken);
             $validPageToken = $this->exchangePageToken($accessToken);
@@ -179,24 +179,24 @@ class TokenLoader extends Component
                 $this->errorMessages[] = "Error Code: " . $helper->getErrorCode() . "\n";
                 $this->errorMessages[] = "Error Reason: " . $helper->getErrorReason() . "\n";
                 $this->errorMessages[] = "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
-                $this->errorMessages[] = 'Bad request';
+                return false;
             }
+            $this->errorMessages[] = 'Bad request';
             return false;
         }
         return $accessToken;
     }
 
     /**
-     * @param $fb
+     * @param $facebook
      * @param $accessToken
      * @param $config
      * @return mixed
      */
-    private function validateToken(Facebook $fb, FBAccessToken $accessToken)
+    private function validateToken(Facebook $facebook, FBAccessToken $accessToken)
     {
         // The OAuth 2.0 client handler helps us manage access tokens
-        $oAuth2Client = $fb->getOAuth2Client();
+        $oAuth2Client = $facebook->getOAuth2Client();
         // Get the access token metadata from /debug_token
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
         // Validation (these will throw FacebookSDKException's when they fail)
@@ -229,8 +229,8 @@ class TokenLoader extends Component
      */
     public function exchangePageToken(FBAccessToken $accessToken)
     {
-        $fb = $this->getFacebookInstance();
-        $response = $fb->get($this->pageId . '?fields=access_token', $accessToken);
+        $facebook = $this->getFacebookInstance();
+        $response = $facebook->get($this->pageId . '?fields=access_token', $accessToken);
         return $response->getDecodedBody()['access_token'];
     }
 
@@ -241,6 +241,4 @@ class TokenLoader extends Component
     {
         return $this->errorMessages;
     }
-
-
 }
