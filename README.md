@@ -5,37 +5,33 @@ Connect your Website with a Facebook Page
 
 ![Screenshot](resources/img/plugin-logo.png)
 
-## Requirements
+## FacebookConnector Overview
+ ### Post your Craft entry on facebook in no Time!
+ ### Todo write doc for this!
 
+## Requirements
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
 
 ## Contribute to the Project
-
   - I will create a "CONTRIBUTE.md" file
 
 ## Installation
-
 To install the plugin, follow these instructions.
-
 1. Open your terminal and go to your Craft project:
+
         cd /path/to/project
-
+        
 2. Then tell Composer to load the plugin:
-        composer require boscho87/facebook-connector
 
+       composer require itscoding/facebook-connector
+       
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for FacebookConnector.
 
-## FacebookConnector Overview
- ### Post your Craft entry on facebook in no Time!
-
- - the name is not 100% Okay, for now its only to post craft entries to facebook when the entry will be saved
+4. Configure the plugin
 
 ## Configuring FacebookConnector
-
-
-
 ### Post an Entry on facebook
-add the file fieldconfig.php and return a callable that returns an array with your fileds
+add the file fieldconfig.php and return a callable that returns an array with your fields
 `/var/www/htdocs/craft/fieldconfig.php`
 
 ```php
@@ -64,9 +60,7 @@ return function (Entry $entry) {
 
  - Add Configure screenshot and explenation here
  
- 
 ## Using FacebookConnector
-
 ### Todo write doc for this!
 
 ## FacebookConnector Roadmap
