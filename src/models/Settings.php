@@ -38,13 +38,13 @@ class Settings extends Model
      * @var string
      */
 
-    public $appId ;
+    public $appId = 'appId';
 
-    public $appSecret ;
+    public $appSecret = 'appSecret';
 
-    public $pageId ;
+    public $pageId = 'pageId';
 
-    public $apiVersion ;
+    public $apiVersion = 'v2.10';
 
     // Public Methods
     // =========================================================================
@@ -62,7 +62,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['appId', 'appSecret', 'pageId',  'apiVersion'], 'required'],
+            [['appId', 'appSecret', 'pageId', 'apiVersion'], 'required'],
         ];
     }
 }

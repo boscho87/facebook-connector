@@ -12,6 +12,7 @@ namespace boscho87fbconn\facebookconnector\services;
 
 use boscho87fbconn\facebookconnector\FacebookConnector;
 use boscho87fbconn\facebookconnector\records\AccessToken;
+use Craft;
 use Facebook\Authentication\AccessToken as FBAccessToken;
 use Facebook\Authentication\OAuth2Client;
 use craft\base\Component;
@@ -31,8 +32,6 @@ class TokenLoader extends Component
 {
 
     private $errorMessages = [];
-
-    private $sessionName = 'token_session';
 
     private $facebookPermissions = ['publish_pages', 'manage_pages'];
 
@@ -87,8 +86,9 @@ class TokenLoader extends Component
     {
         $fb = $this->getFacebookInstance();
         $helper = $fb->getRedirectLoginHelper();
+        $cpTrigger = Craft::$app->config->getConfigSettings('general')->cpTrigger;
         return $helper->getLoginUrl(
-            $this->baseUrl . '/actions/facebook-connector/default/callback',
+            $this->baseUrl . $cpTrigger . '/dashboard',
             $this->facebookPermissions
         );
     }
@@ -107,7 +107,12 @@ class TokenLoader extends Component
             $oAuth2Client = $this->validateToken($fb, $accessToken);
             $accessToken = $this->exchangeShortLivingToken($accessToken, $oAuth2Client);
             $this->storeToken($accessToken);
-            return true;
+            $validPageToken = $this->exchangePageToken($accessToken);
+            if ($validPageToken) {
+                return true;
+            }
+            //no valid page token, because the user is not allowed on the page
+            $this->errorMessages[] = 'user not allowed to post as page: ' . $this->pageId;
         }
         return false;
     }
@@ -118,10 +123,6 @@ class TokenLoader extends Component
      */
     public function loadValidToken()
     {
-        /** @var  $token FBAccessToken */
-        if (isset($_SESSION[$this->sessionName]) && ($token = $_SESSION[$this->sessionName]) && !$token->isExpired()) {
-            return $token;
-        }
         return $this->loadTokenFromDb();
     }
 
@@ -149,7 +150,6 @@ class TokenLoader extends Component
      */
     private function storeToken(FBAccessToken $token)
     {
-        $_SESSION[$this->sessionName] = $token;
         AccessToken::deleteAll();
         $dbToken = new AccessToken();
         $dbToken->data = serialize($token);
@@ -241,7 +241,6 @@ class TokenLoader extends Component
     {
         return $this->errorMessages;
     }
-
 
 
 }

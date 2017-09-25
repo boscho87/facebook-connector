@@ -89,7 +89,6 @@ class FacebookConnector extends Plugin
             $this->controllerNamespace = 'boscho87fbconn\facebookconnector\console\controllers';
         }
 
-
         $this->setComponents([
                 'tokenLoader' => TokenLoader::class,
                 'entryPoster' => EntryPoster::class,
@@ -125,11 +124,21 @@ class FacebookConnector extends Plugin
             }
         );
 
+
         // Register our widgets
         Event::on(
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
+                if (Craft::$app->request->get('code')) {
+                    FacebookConnector::$plugin->tokenLoader->handleCallback();
+                    $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
+                    if (count($errors) > 0) {
+                        Craft::$app->session->setError(implode(' ', $errors));
+                    } else {
+                        Craft::$app->session->setNotice('Loaded a Valid Token');
+                    }
+                }
                 $event->types[] = OAuth::class;
             }
         );
@@ -209,4 +218,6 @@ class FacebookConnector extends Plugin
     {
         return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
     }
+
+
 }

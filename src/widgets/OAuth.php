@@ -212,10 +212,15 @@ class OAuth extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(OAuthWidgetAsset::class);
 
+        $cpTrigger = Craft::$app->config->getConfigSettings('general')->cpTrigger;
         return Craft::$app->getView()->renderTemplate(
             'facebook-connector/_components/widgets/OAuth_body',
             [
-                'message' => $this->message
+                'message' => $this->message,
+                'settings' => FacebookConnector::$plugin->getSettings(),
+                'settingsLink' => '/' . $cpTrigger . '/settings/plugins/facebook-connector',
+                'oAuthStatus' => FacebookConnector::$plugin->tokenLoader->loadValidToken(),
+                'tokenLink' => FacebookConnector::$plugin->tokenLoader->getLoginUrl()
             ]
         );
     }
