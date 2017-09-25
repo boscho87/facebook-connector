@@ -70,10 +70,7 @@ return function (Entry $entry) {
 
 Some things to do:
 
-* Create a widget to watch the token status
-* Create Templates for the auth process
 * Create a translation for the german language
-* Rename the vendor to itscoding (from itscoding)
 * Crate a cool Icon
 * Testing
 * Bugfixing
