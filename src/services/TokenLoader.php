@@ -179,9 +179,9 @@ class TokenLoader extends Component
                 $this->errorMessages[] = "Error Code: " . $helper->getErrorCode() . "\n";
                 $this->errorMessages[] = "Error Reason: " . $helper->getErrorReason() . "\n";
                 $this->errorMessages[] = "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
-                $this->errorMessages[] = 'Bad request';
+                return false;
             }
+            $this->errorMessages[] = 'Bad request';
             return false;
         }
         return $accessToken;

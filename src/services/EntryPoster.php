@@ -153,9 +153,9 @@ class EntryPoster extends Component
         $postMemorize->checksum = $checkSum;
         if ($postMemorize->isNewRecord) {
             $postMemorize->save();
-        } else {
-            $postMemorize->update();
+            return;
         }
+        $postMemorize->update();
     }
 
     /**
@@ -164,7 +164,10 @@ class EntryPoster extends Component
     private function removeCheckSum(string $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['facebookId' => $facebookId]);
-        return $postMemorize->delete();
+        if ($postMemorize) {
+            return $postMemorize->delete();
+        }
+        return false;
     }
 
     /**
