@@ -100,11 +100,11 @@ class TokenLoader extends Component
      */
     public function handleCallback()
     {
-        $fb = $this->getFacebookInstance();
-        $helper = $fb->getRedirectLoginHelper();
+        $facebook = $this->getFacebookInstance();
+        $helper = $facebook->getRedirectLoginHelper();
         $accessToken = $this->getShortLivingAccessToken($helper);
         if ($accessToken) {
-            $oAuth2Client = $this->validateToken($fb, $accessToken);
+            $oAuth2Client = $this->validateToken($facebook, $accessToken);
             $accessToken = $this->exchangeShortLivingToken($accessToken, $oAuth2Client);
             $this->storeToken($accessToken);
             $validPageToken = $this->exchangePageToken($accessToken);
