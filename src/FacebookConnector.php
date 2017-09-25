@@ -13,7 +13,6 @@ namespace boscho87fbconn\facebookconnector;
 use boscho87fbconn\facebookconnector\services\EntryPoster as EntryPosterService;
 use boscho87fbconn\facebookconnector\services\EventFetcher as EventFetcherService;
 use boscho87fbconn\facebookconnector\services\TokenLoader as TokenLoaderService;
-use boscho87fbconn\facebookconnector\widgets\LastUpdateWidget as LastUpdateWidgetWidget;
 use boscho87fbconn\facebookconnector\services\EntryPoster;
 use boscho87fbconn\facebookconnector\services\EventFetcher;
 use boscho87fbconn\facebookconnector\models\Settings;
@@ -131,7 +130,6 @@ class FacebookConnector extends Plugin
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = LastUpdateWidgetWidget::class;
                 $event->types[] = OAuth::class;
             }
         );
