@@ -122,8 +122,8 @@ class EntryPoster extends Component
     private function sendRequest(string $endPoint, array $postData, AccessToken $token)
     {
         try {
-            $fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
-            $response = $fb->post(
+            $facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+            $response = $facebook->post(
                 $endPoint,
                 $postData,
                 FacebookConnector::$plugin->tokenLoader->exchangePageToken($token)
