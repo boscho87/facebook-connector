@@ -132,11 +132,10 @@ class FacebookConnector extends Plugin
                 if (Craft::$app->request->get('code')) {
                     FacebookConnector::$plugin->tokenLoader->handleCallback();
                     $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
-                    if (count($errors) > 0) {
-                        Craft::$app->session->setError(implode(' ', $errors));
-                    } else {
+                    if (!count($errors) > 0) {
                         Craft::$app->session->setNotice('Loaded a Valid Token');
                     }
+                    Craft::$app->session->setError(implode(' ', $errors));
                 }
                 $event->types[] = OAuth::class;
             }
