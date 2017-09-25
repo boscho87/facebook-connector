@@ -88,7 +88,6 @@ class FacebookConnector extends Plugin
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
-
         $this->setComponents([
                 'tokenLoader' => TokenLoader::class,
                 'entryPoster' => EntryPoster::class,
@@ -210,14 +209,5 @@ class FacebookConnector extends Plugin
             ]
         );
     }
-
-    /**
-     * @return string
-     */
-    public static function getBaseUrl()
-    {
-        return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
-    }
-
 
 }

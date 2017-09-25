@@ -58,7 +58,7 @@ class TokenLoader extends Component
         $this->appSecret = $settings->appSecret;
         $this->apiVersion = $settings->apiVersion;
         $this->pageId = $settings->pageId;
-        $this->baseUrl = FacebookConnector::getBaseUrl();
+        $this->baseUrl = Craft::$app->request->getHostInfo();
     }
 
     /**
@@ -86,7 +86,7 @@ class TokenLoader extends Component
     {
         $fb = $this->getFacebookInstance();
         $helper = $fb->getRedirectLoginHelper();
-        $cpTrigger = Craft::$app->config->getConfigSettings('general')->cpTrigger;
+        $cpTrigger = '/' . Craft::$app->config->getConfigSettings('general')->cpTrigger;
         return $helper->getLoginUrl(
             $this->baseUrl . $cpTrigger . '/dashboard',
             $this->facebookPermissions
