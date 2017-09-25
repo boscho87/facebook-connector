@@ -32,8 +32,36 @@ To install the plugin, follow these instructions.
 
 ## Configuring FacebookConnector
 
- - Configure screenshot and explenation
+```php
+add the file fieldconfig.php an return a callable that returns an array   
+`/var/www/htdocs/craft/fieldconfig.php`
 
+<?php
+use boscho87fbconn\facebookconnector\FacebookConnector;
+use craft\elements\Entry;
+
+return function (Entry $entry) {
+    return [
+        //if true, the message is posted {default:true}
+        'post_on_facebook' => $entry->post_on_facebook,
+        //official doc https://developers.facebook.com/docs/graph-api/reference/v2.10/post
+        //craft field to get the message to post from {default:''}
+        'message' => $entry->subTitle,
+        //link to the entry page {default:$entry->getUrl()}
+        'link' => $entry->getUrl(),
+        //field to get the img url from {default:''} --> no image
+        'picture' => (count($entry->fb_image) > 0) ? FacebookConnector::getBaseUrl() . $entry->fb_image->first()->getUrl() : '',
+        //field to get the caption from {default:''}
+        'caption' => $entry->getAuthor()->getName(),
+        //field to get the description from {default:''}
+        'description' => $entry->teaserSubTitle
+    ];
+};
+```
+
+ - Add Configure screenshot and explenation here
+ 
+ 
 ## Using FacebookConnector
 
 ### Todo write doc for this!
