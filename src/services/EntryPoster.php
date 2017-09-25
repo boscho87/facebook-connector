@@ -39,15 +39,23 @@ class EntryPoster extends Component
      */
     private function getPostData(Entry $entry)
     {
-        return [
-            'post_on_facebook' => $entry->post_on_facebook,
-            'entry_id' => $entry->id,
-            'message' => $entry->subTitle,
+        try {
+            $config = include \Craft::$app->vendorPath . '/../' . 'fieldconfig.php';
+        } catch (\Exception $e) {
+            $config = function () {
+                return [];
+            };
+        }
+        $default = [
+            'post_on_facebook' => $entry->post_on_facebook ?? true,
             'link' => $entry->getUrl(),
-            'picture' => (count($entry->fb_image) > 0) ? FacebookConnector::getBaseUrl() . $entry->fb_image->first()->getUrl() : '',
-            'caption' => $entry->getAuthor()->getName(),
-            'description' => $entry->teaserSubTitle
+            'entry_id' => $entry->id,
+            'message' => $entry->subTitle ?? '',
+            'picture' => '',
+            'caption' => '',
+            'description' => ''
         ];
+        return array_merge($default, $config($entry));
     }
 
     /**
@@ -70,8 +78,11 @@ class EntryPoster extends Component
             } elseif (($postId = $this->entryChanged($entry->getId(), $checkSum))) {
                 $updated = $this->updatePost($postId, $postData, $token);
                 if (!$updated) {
-                    //Todo handle the case if update is failed
-                    //Todo set the post_on_facebook to false to avoid to post this again if its unwanted
+                    //Todo translate
+                    \Craft::$app->session->setError(
+                        'Post to update not found, deleted reference and set post_on_facebook to false'
+                    );
+                    //Todo set the post_on_facebook and save the entry
                     return false;
                 }
                 $this->saveCheckSum($checkSum, $entry->getId(), $postId);
@@ -108,7 +119,7 @@ class EntryPoster extends Component
      * @param AccessToken $token
      * @return mixed string|null
      */
-    private function sendRequest(string $endPoint, array $postData, AccessToken $token, $entryId = null)
+    private function sendRequest(string $endPoint, array $postData, AccessToken $token)
     {
         try {
             $fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
@@ -120,6 +131,7 @@ class EntryPoster extends Component
             //if its a new post return the id of the created post
             return $response->getDecodedBody()['id'] ?? true;
         } catch (\Exception $e) {
+            //the endpoint is the facebook if (on update)
             $this->removeCheckSum($endPoint);
             return false;
         }

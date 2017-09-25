@@ -22,4 +22,6 @@
  */
 return [
     'FacebookConnector plugin loaded' => 'FacebookConnector plugin loaded',
+    'Settings' => 'Einstellungs',
+    'info' => 'Infos'
 ];

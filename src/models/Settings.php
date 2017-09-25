@@ -38,11 +38,11 @@ class Settings extends Model
      * @var string
      */
 
-    public $appId = '630922693759784';
+    public $appId = 'appId';
 
-    public $appSecret = '8abbab067dea4c0096089af8312e94fd';
+    public $appSecret = 'appSecret';
 
-    public $pageId = 'atmovement';
+    public $pageId = 'pageId';
 
     public $apiVersion = 'v2.10';
 
@@ -62,7 +62,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['appId', 'appSecret', 'pageId', 'baseUrl', 'apiVersion'], 'required'],
+            [['appId', 'appSecret', 'pageId', 'apiVersion'], 'required'],
         ];
     }
 }

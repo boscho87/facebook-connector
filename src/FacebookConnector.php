@@ -13,12 +13,12 @@ namespace boscho87fbconn\facebookconnector;
 use boscho87fbconn\facebookconnector\services\EntryPoster as EntryPosterService;
 use boscho87fbconn\facebookconnector\services\EventFetcher as EventFetcherService;
 use boscho87fbconn\facebookconnector\services\TokenLoader as TokenLoaderService;
-use boscho87fbconn\facebookconnector\widgets\LastUpdateWidget as LastUpdateWidgetWidget;
 use boscho87fbconn\facebookconnector\services\EntryPoster;
 use boscho87fbconn\facebookconnector\services\EventFetcher;
 use boscho87fbconn\facebookconnector\models\Settings;
 use boscho87fbconn\facebookconnector\services\TokenLoader;
 
+use boscho87fbconn\facebookconnector\widgets\OAuth;
 use Craft;
 use craft\base\Plugin;
 use craft\elements\Entry;
@@ -81,9 +81,9 @@ class FacebookConnector extends Plugin
      */
     public function init()
     {
+
         parent::init();
         self::$plugin = $this;
-
         // Add in our console commands
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'boscho87fbconn\facebookconnector\console\controllers';
@@ -124,12 +124,22 @@ class FacebookConnector extends Plugin
             }
         );
 
+
         // Register our widgets
         Event::on(
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = LastUpdateWidgetWidget::class;
+                if (Craft::$app->request->get('code')) {
+                    FacebookConnector::$plugin->tokenLoader->handleCallback();
+                    $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
+                    if (count($errors) > 0) {
+                        Craft::$app->session->setError(implode(' ', $errors));
+                    } else {
+                        Craft::$app->session->setNotice('Loaded a Valid Token');
+                    }
+                }
+                $event->types[] = OAuth::class;
             }
         );
 
@@ -208,4 +218,6 @@ class FacebookConnector extends Plugin
     {
         return (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
     }
+
+
 }
