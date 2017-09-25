@@ -32,7 +32,7 @@ To install the plugin, follow these instructions.
 ## Configuring FacebookConnector
 ### Post an Entry on facebook
 add the file fieldconfig.php and return a callable that returns an array with your fields
-`/var/www/htdocs/craft/fieldconfig.php`
+`/path/to/project/fieldconfig.php`
 
 ```php
 <?php
