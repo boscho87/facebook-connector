@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\assetbundles\lastupdatewidgetwidget;
+namespace boscho87fbconn\facebookconnector\assetbundles\oauthwidget;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -32,7 +32,7 @@ use craft\web\assets\cp\CpAsset;
  * @package   FacebookConnector
  * @since     0.1.0
  */
-class LastUpdateWidgetWidgetAsset extends AssetBundle
+class OAuthWidgetAsset extends AssetBundle
 {
     // Public Methods
     // =========================================================================
@@ -43,7 +43,7 @@ class LastUpdateWidgetWidgetAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@boscho87fbconn/facebookconnector/assetbundles/lastupdatewidgetwidget/dist";
+        $this->sourcePath = "@boscho87fbconn/facebookconnector/assetbundles/oauthwidget/dist";
 
         // define the dependencies
         $this->depends = [
@@ -53,11 +53,11 @@ class LastUpdateWidgetWidgetAsset extends AssetBundle
         // define the relative path to CSS/JS files that should be registered with the page
         // when this asset bundle is registered
         $this->js = [
-            'js/LastUpdateWidget.js',
+            'js/OAuthWidget.js',
         ];
 
         $this->css = [
-            'css/LastUpdateWidget.css',
+            'css/OAuthWidget.css',
         ];
 
         parent::init();

@@ -1,0 +1,34 @@
+{#
+/**
+ * FacebookConnector plugin for Craft CMS
+ *
+ * LastUpdateWidget Widget Body
+ *
+ * @author    Simon Müller itsCoding
+ * @copyright Copyright (c) 2017 Simon Müller itsCoding
+ * @link      https://www.itscoding.ch
+ * @package   FacebookConnector
+ * @since     0.1.0
+ */
+#}
+
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@boscho87fbconn/facebookconnector/assetbundles/oauthwidget/dist', true) ~ '/img/OAuthWidget-icon.svg' %}
+
+<img src="{{ iconUrl }}" height="64" width="64"/>
+<h3><a href="{{ settingsLink }}"> {{ 'Settings'|t }}</a> {{ 'info'|t }}</h3>
+<p>
+    {{ 'connected facebook page'|t }}:
+    <a href="https://facebook.com/{{ settings.pageId }}" target="_blank">{{ settings.pageId }}</a>
+    <br>
+    {{ 'api version'|t }}:
+    {{ settings.apiVersion }}
+    <br>
+    {{ 'app id'|t }}:
+    {{ settings.appId }}
+    <br>
+    {{ 'has a valid o auth token'|t }}: {{ oAuthStatus  ? 'Yes'|t : 'No'|t }}
+    <br>
+    <a href="{{ tokenLink }}" target="_blank">Load a new token</a>
+
+</p>
+

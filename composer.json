@@ -1,8 +1,8 @@
 {
     "name": "boscho87fbconn/facebook-connector",
-    "description": "Connect a Website to an Facbook Page",
+    "description": "Connect a Website to a Facebook Page",
     "type": "craft-plugin",
-    "version": "0.1.0",
+    "version": "0.12.0",
     "keywords": [
         "craft",
         "cms",
