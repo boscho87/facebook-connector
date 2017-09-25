@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\records;
 
-
 use craft\db\ActiveRecord;
 
 class PostMemorize extends ActiveRecord

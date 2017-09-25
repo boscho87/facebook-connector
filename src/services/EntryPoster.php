@@ -10,13 +10,11 @@
 
 namespace itscoding\facebookconnector\services;
 
-
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
 use Facebook\Authentication\AccessToken;
-
 
 /**
  * EntryPoster Service
@@ -204,5 +202,4 @@ class EntryPoster extends Component
         var_dump($token, 'no token found');
         return false;
     }
-
 }

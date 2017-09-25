@@ -241,6 +241,4 @@ class TokenLoader extends Component
     {
         return $this->errorMessages;
     }
-
-
 }

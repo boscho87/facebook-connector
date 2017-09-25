@@ -10,7 +10,6 @@
 
 namespace itscoding\facebookconnector\models;
 
-
 use craft\base\Model;
 
 /**

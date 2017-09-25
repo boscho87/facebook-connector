@@ -92,8 +92,7 @@ class FacebookConnector extends Plugin
                 'tokenLoader' => TokenLoader::class,
                 'entryPoster' => EntryPoster::class,
                 'eventFetcher' => EventFetcher::class
-            ]
-        );
+            ]);
 
         Event::on(
             Entry::class,
@@ -208,5 +207,4 @@ class FacebookConnector extends Plugin
             ]
         );
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\migrations;
 
-
 use Craft;
 use craft\db\Migration;
 

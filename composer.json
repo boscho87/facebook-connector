@@ -48,5 +48,8 @@
             "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher"
         },
         "class": "itscoding\\facebookconnector\\FacebookConnector"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.1"
     }
 }
