@@ -1,7 +1,6 @@
 {#
 /**
  * FacebookConnector plugin for Craft CMS
- *
  * LastUpdateWidget Widget Body
  *
  * @author    Simon Müller itsCoding
@@ -13,22 +12,21 @@
 #}
 
 {% set iconUrl = view.getAssetManager().getPublishedUrl('@itscoding/facebookconnector/assetbundles/oauthwidget/dist', true) ~ '/img/OAuthWidget-icon.svg' %}
-
 <img src="{{ iconUrl }}" height="64" width="64"/>
-<h3><a href="{{ settingsLink }}"> {{ 'Settings'|t }}</a> {{ 'info'|t }}</h3>
+<h3><a href="{{ settingsLink }}"> {{ 'Settings'|t('facebook-connector') }}</a></h3>
 <p>
-    {{ 'connected facebook page'|t }}:
-    <a href="https://facebook.com/{{ settings.pageId }}" target="_blank">{{ settings.pageId }}</a>
-    <br>
-    {{ 'api version'|t }}:
-    {{ settings.apiVersion }}
-    <br>
-    {{ 'app id'|t }}:
-    {{ settings.appId }}
-    <br>
-    {{ 'has a valid o auth token'|t }}: {{ oAuthStatus  ? 'Yes'|t : 'No'|t }}
-    <br>
-    <a href="{{ tokenLink }}" target="_blank">Load a new token</a>
+    <b>{{ 'connected facebook page'|t('facebook-connector') }}:</b>
+    <a href="https://facebook.com/{{ settings.pageId }}" target="_blank">{{ settings.pageId }}</a><br>
 
+    <b>{{ 'api version'|t('facebook-connector') }}:</b> {{ settings.apiVersion }}<br>
+
+    <b>{{ 'App ID'|t }}:</b> {{ settings.appId }}<br>
+
+    <b>{{ 'Has a valid OAuth Token'|t('facebook-connector') }}:</b>
+    {{ oAuthStatus  ? 'Yes'|t('facebook-connector')  : 'No'|t('facebook-connector') }}<br><br>
+
+    <a href="{{ tokenLink }}" class="btn submit" target="_blank" data-icon="refresh">
+        {{ 'Load a new token'|t('facebook-connector') }}
+    </a>
 </p>
 

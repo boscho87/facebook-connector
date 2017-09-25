@@ -17,30 +17,17 @@ use itscoding\facebookconnector\services\EntryPoster;
 use itscoding\facebookconnector\services\EventFetcher;
 use itscoding\facebookconnector\models\Settings;
 use itscoding\facebookconnector\services\TokenLoader;
-
 use itscoding\facebookconnector\widgets\OAuth;
 use Craft;
 use craft\base\Plugin;
 use craft\elements\Entry;
 use Craft\events\ModelEvent;
-use craft\services\Plugins;
-use craft\events\PluginEvent;
 use craft\console\Application as ConsoleApplication;
-use craft\web\UrlManager;
 use craft\services\Dashboard;
 use craft\events\RegisterComponentTypesEvent;
-use craft\events\RegisterUrlRulesEvent;
 use yii\base\Event;
 
 /**
- * Craft plugins are very much like little applications in and of themselves. We’ve made
- * it as simple as we can, but the training wheels are off. A little prior knowledge is
- * going to be required to write a plugin.
- *
- * For the purposes of the plugin docs, we’re going to assume that you know PHP and SQL,
- * as well as some semi-advanced concepts like object-oriented programming and PHP namespaces.
- *
- * https://craftcms.com/docs/plugins/introduction
  *
  * @author    Simon Müller itsCoding
  * @package   FacebookConnector
@@ -54,30 +41,16 @@ use yii\base\Event;
  */
 class FacebookConnector extends Plugin
 {
-    // Static Properties
-    // =========================================================================
 
     /**
      * Static property that is an instance of this plugin class so that it can be accessed via
      * FacebookConnector::$plugin
-     *
      * @var FacebookConnector
      */
     public static $plugin;
 
-    // Public Methods
-    // =========================================================================
-
     /**
-     * Set our $plugin static property to this class so that it can be accessed via
-     * FacebookConnector::$plugin
-     *
-     * Called after the plugin class is instantiated; do any one-time initialization
-     * here such as hooks and events.
-     *
-     * If you have a '/vendor/autoload.php' file, it will be loaded for you automatically;
-     * you do not need to load it in your init() method.
-     *
+     * executed on every request
      */
     public function init()
     {
@@ -89,10 +62,10 @@ class FacebookConnector extends Plugin
             $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
         $this->setComponents([
-                'tokenLoader' => TokenLoader::class,
-                'entryPoster' => EntryPoster::class,
-                'eventFetcher' => EventFetcher::class
-            ]);
+            'tokenLoader' => TokenLoader::class,
+            'entryPoster' => EntryPoster::class,
+            'eventFetcher' => EventFetcher::class
+        ]);
 
         Event::on(
             Entry::class,
@@ -104,35 +77,18 @@ class FacebookConnector extends Plugin
             }
         );
 
-        // Register our site routes
-        Event::on(
-            UrlManager::class,
-            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
-                $event->rules['siteActionTrigger1'] = 'facebook-connector/default';
-            }
-        );
-
-        // Register our CP routes
-        Event::on(
-            UrlManager::class,
-            UrlManager::EVENT_REGISTER_CP_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
-                $event->rules['cpActionTrigger1'] = 'facebook-connector/default/do-something';
-            }
-        );
-
-
-        // Register our widgets
         Event::on(
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
                 if (Craft::$app->request->get('code')) {
+                    //handle facebook callback
                     FacebookConnector::$plugin->tokenLoader->handleCallback();
                     $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
                     if (!count($errors) > 0) {
-                        Craft::$app->session->setNotice('Loaded a Valid Token');
+                        Craft::$app->session->setNotice(
+                            Craft::t('facebook-connector','Loaded a Valid Token')
+                        );
                     }
                     Craft::$app->session->setError(implode(' ', $errors));
                 }
@@ -140,20 +96,9 @@ class FacebookConnector extends Plugin
             }
         );
 
-        // Do something after we're installed
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                    // We were just installed
-                }
-            }
-        );
-
         /**
+         *Todo remove this comment and code if its not needed anymore
          * Logging in Craft involves using one of the following methods:
-         *
          * Craft::trace(): record a message to trace how a piece of code runs. This is mainly for development use.
          * Craft::info(): record a message that conveys some useful information.
          * Craft::warning(): record a warning message that indicates something unexpected has happened.
@@ -179,12 +124,8 @@ class FacebookConnector extends Plugin
         );
     }
 
-    // Protected Methods
-    // =========================================================================
-
     /**
      * Creates and returns the model used to store the plugin’s settings.
-     *
      * @return \craft\base\Model|null
      */
     protected function createSettingsModel()
@@ -195,7 +136,6 @@ class FacebookConnector extends Plugin
     /**
      * Returns the rendered settings HTML, which will be inserted into the content
      * block on the settings page.
-     *
      * @return string The rendered settings HTML
      */
     protected function settingsHtml(): string

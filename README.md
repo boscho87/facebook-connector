@@ -73,13 +73,17 @@ return function (Entry $entry) {
 
 Some things to do:
 
-* Create a translation for the german language
 * Crate a cool Icon
+* Create a translation for the german language
+* Codeguideline fixes
+* Finish the Documentation
 * Testing
 * Bugfixing
-* Codeguideline fixes
 * Release it
-* Finish the Documentation
-* Add more features
+* Add more features [Ideas]-[priority 1=high 5=low] 
+    - Get Events from Facebook  - 2 (CronJobbed Task)
+    - Add possibility to choose user to post - 5
+    - Show Likes(and like infos) to an entry on the Website - 2
+    - etc. (contact me if you have an idea) 
 
 Brought to you by [Simon Müller itsCoding](https://www.itscoding.ch)
