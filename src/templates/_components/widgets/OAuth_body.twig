@@ -11,22 +11,19 @@
  */
 #}
 
-{% set iconUrl = view.getAssetManager().getPublishedUrl('@itscoding/facebookconnector/assetbundles/oauthwidget/dist', true) ~ '/img/OAuthWidget-icon.svg' %}
-<img src="{{ iconUrl }}" height="64" width="64"/>
 <h3><a href="{{ settingsLink }}"> {{ 'Settings'|t('facebook-connector') }}</a></h3>
-<p>
-    <b>{{ 'connected facebook page'|t('facebook-connector') }}:</b>
-    <a href="https://facebook.com/{{ settings.pageId }}" target="_blank">{{ settings.pageId }}</a><br>
+<b>{{ 'connected facebook page'|t('facebook-connector') }}:</b>
+<a href="https://facebook.com/{{ settings.pageId }}" target="_blank">{{ settings.pageId }}</a><br>
 
+<p class="widget-body">
     <b>{{ 'api version'|t('facebook-connector') }}:</b> {{ settings.apiVersion }}<br>
-
     <b>{{ 'App ID'|t }}:</b> {{ settings.appId }}<br>
+</p>
 
+<p class="widget-footer">
     <b>{{ 'Has a valid OAuth Token'|t('facebook-connector') }}:</b>
     {{ oAuthStatus  ? 'Yes'|t('facebook-connector')  : 'No'|t('facebook-connector') }}<br><br>
-
     <a href="{{ tokenLink }}" class="btn submit" target="_blank" data-icon="refresh">
         {{ 'Load a new token'|t('facebook-connector') }}
     </a>
 </p>
-

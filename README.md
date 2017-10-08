@@ -68,8 +68,6 @@ return function (Entry $entry) {
 Some things to do:
 
 * Crate a cool Icon
-* Create a translation for the german language
-* Codeguideline fixes
 * Finish the Documentation
 * Testing
 * Bugfixing
