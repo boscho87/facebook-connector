@@ -2,7 +2,7 @@
     "name": "itscoding/facebook-connector",
     "description": "Connect a Website to an Facbook Page",
     "type": "craft-plugin",
-    "version": "0.14.0",
+    "version": "0.15.0",
     "keywords": [
         "craft",
         "cms",
