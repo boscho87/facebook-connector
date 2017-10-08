@@ -8,15 +8,13 @@
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
  */
 
-namespace boscho87fbconn\facebookconnector\services;
+namespace itscoding\facebookconnector\services;
 
-
-use boscho87fbconn\facebookconnector\FacebookConnector;
-use boscho87fbconn\facebookconnector\records\PostMemorize;
+use itscoding\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
 use Facebook\Authentication\AccessToken;
-
 
 /**
  * EntryPoster Service
@@ -74,7 +72,7 @@ class EntryPoster extends Component
             $checkSum = md5(serialize($postData));
             if ($this->isNewEntry($entry->getId())) {
                 $postId = $this->postNew($postData, $token);
-                $this->saveCheckSum($checkSum, $entry->getId(), $postId);
+                $this->savePostReference($checkSum, $entry->getId(), $postId);
             } elseif (($postId = $this->entryChanged($entry->getId(), $checkSum))) {
                 $updated = $this->updatePost($postId, $postData, $token);
                 if (!$updated) {
@@ -85,7 +83,7 @@ class EntryPoster extends Component
                     //Todo set the post_on_facebook and save the entry
                     return false;
                 }
-                $this->saveCheckSum($checkSum, $entry->getId(), $postId);
+                $this->savePostReference($checkSum, $entry->getId(), $postId);
             }
         }
         return true;
@@ -122,8 +120,8 @@ class EntryPoster extends Component
     private function sendRequest(string $endPoint, array $postData, AccessToken $token)
     {
         try {
-            $fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
-            $response = $fb->post(
+            $facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+            $response = $facebook->post(
                 $endPoint,
                 $postData,
                 FacebookConnector::$plugin->tokenLoader->exchangePageToken($token)
@@ -132,7 +130,7 @@ class EntryPoster extends Component
             return $response->getDecodedBody()['id'] ?? true;
         } catch (\Exception $e) {
             //the endpoint is the facebook if (on update)
-            $this->removeCheckSum($endPoint);
+            $this->removePostReference($endPoint);
             return false;
         }
     }
@@ -142,7 +140,7 @@ class EntryPoster extends Component
      * @param string $entryId
      * @param $facebookId
      */
-    private function saveCheckSum(string $checkSum, int $entryId, $facebookId)
+    private function savePostReference(string $checkSum, int $entryId, $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['entryId' => $entryId]);
         if (!$postMemorize) {
@@ -153,18 +151,21 @@ class EntryPoster extends Component
         $postMemorize->checksum = $checkSum;
         if ($postMemorize->isNewRecord) {
             $postMemorize->save();
-        } else {
-            $postMemorize->update();
+            return;
         }
+        $postMemorize->update();
     }
 
     /**
      * @param int $entryId
      */
-    private function removeCheckSum(string $facebookId)
+    private function removePostReference(string $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['facebookId' => $facebookId]);
-        return $postMemorize->delete();
+        if ($postMemorize) {
+            return $postMemorize->delete();
+        }
+        return false;
     }
 
     /**
@@ -201,5 +202,4 @@ class EntryPoster extends Component
         var_dump($token, 'no token found');
         return false;
     }
-
 }

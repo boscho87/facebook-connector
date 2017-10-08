@@ -2,7 +2,7 @@
 /**
  * FacebookConnector plugin for Craft CMS 3.x
  *
- * Connect a Website to an Facbook Page
+ * Connect a Website to a Facebook Page
  *
  * @link      https://www.itscoding.ch
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
@@ -21,7 +21,20 @@
  * @since     0.1.0
  */
 return [
-    'FacebookConnector plugin loaded' => 'FacebookConnector plugin loaded',
-    'Settings' => 'Einstellungs',
-    'info' => 'Infos'
+    'Settings' => 'Einstellungen',
+    //Widget
+    'api version' => 'API Version',
+    'App ID' => 'App ID',
+    'connected facebook page' => 'Verknüpfte Facebook Seite',
+    'Has a valid OAuth Token' => 'Valides Token vorhanden',
+    'Page options' => 'Seiten einstellungen',
+    'Load a new token' => 'Token Aktualisieren',
+    'Yes' => 'Ja',
+    'No' => 'Nein',
+    //Settings
+    'Facebook App ID' => 'Facebook App ID',
+    //Info Messages
+    'Loaded a Valid Token' => 'Gültiges Token geladen',
+    'FacebookConnector plugin loaded' => 'FacebookConnector plugin geladen',
+    //Error Messages
 ];

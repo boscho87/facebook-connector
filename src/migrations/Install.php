@@ -6,8 +6,7 @@
  * @copyright Copyright (c) 2017 boscho87\itscoding
  */
 
-namespace boscho87fbconn\facebookconnector\migrations;
-
+namespace itscoding\facebookconnector\migrations;
 
 use Craft;
 use craft\db\Migration;
@@ -15,37 +14,19 @@ use craft\db\Migration;
 /**
  * FacebookConnector Install Migration
  *
- * If your plugin needs to create any custom database tables when it gets installed,
- * create a migrations/ folder within your plugin folder, and save an Install.php file
- * within it using the following template:
- *
- * If you need to perform any additional actions on install/uninstall, override the
- * safeUp() and safeDown() methods.
- *
  * @author    boscho87\itscoding
  * @package   FacebookConnector
  * @since     0.1.0
  */
 class Install extends Migration
 {
-    // Public Properties
-    // =========================================================================
 
     /**
      * @var string The database driver to use
      */
     public $driver;
 
-    // Public Methods
-    // =========================================================================
-
     /**
-     * This method contains the logic to be executed when applying this migration.
-     * This method differs from [[up()]] in that the DB logic implemented here will
-     * be enclosed within a DB transaction.
-     * Child classes may implement this method instead of [[up()]] if the DB logic
-     * needs to be within a transaction.
-     *
      * @return boolean return a false value to indicate the migration fails
      * and should not proceed further. All other return values mean the migration succeeds.
      */
@@ -59,12 +40,6 @@ class Install extends Migration
     }
 
     /**
-     * This method contains the logic to be executed when removing this migration.
-     * This method differs from [[down()]] in that the DB logic implemented here will
-     * be enclosed within a DB transaction.
-     * Child classes may implement this method instead of [[down()]] if the DB logic
-     * needs to be within a transaction.
-     *
      * @return boolean return a false value to indicate the migration fails
      * and should not proceed further. All other return values mean the migration succeeds.
      */
@@ -75,18 +50,14 @@ class Install extends Migration
         return true;
     }
 
-    // Protected Methods
-    // =========================================================================
-
     /**
      * Creates the tables needed for the Records used by the plugin
-     *
      * @return bool
      */
     protected function createTables()
     {
         $tablesCreated = false;
-        // facebookconnector_accesstoken table
+
         $tableSchema = Craft::$app->db->schema->getTableSchema('{{%facebookconnector_accesstoken}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
@@ -101,6 +72,7 @@ class Install extends Migration
                 ]
             );
         }
+
         $tableSchema = Craft::$app->db->schema->getTableSchema('{{%facebookconnector_postmemorize}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
@@ -122,12 +94,10 @@ class Install extends Migration
 
     /**
      * Removes the tables needed for the Records used by the plugin
-     *
      * @return void
      */
     protected function removeTables()
     {
-        // facebookconnector_accesstoken table
         $this->dropTableIfExists('{{%facebookconnector_accesstoken}}');
         $this->dropTableIfExists('{{%facebookconnector_postmemorize}}');
     }
