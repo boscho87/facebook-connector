@@ -3,7 +3,7 @@
 
 Connect your Website with a Facebook Page
 
-![Screenshot](resources/img/plugin-logo.png)
+![Screenshot](resources/img/icon.png)
 
 ## FacebookConnector Overview
  ### Post your Craft entry on facebook in no Time!
