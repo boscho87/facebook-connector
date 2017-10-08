@@ -67,6 +67,7 @@ return function (Entry $entry) {
 
 Some things to do:
 
+* Refactor the EntryPoster
 * Crate a cool Icon
 * Finish the Documentation
 * Testing

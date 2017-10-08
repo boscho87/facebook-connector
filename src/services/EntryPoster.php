@@ -72,7 +72,7 @@ class EntryPoster extends Component
             $checkSum = md5(serialize($postData));
             if ($this->isNewEntry($entry->getId())) {
                 $postId = $this->postNew($postData, $token);
-                $this->saveCheckSum($checkSum, $entry->getId(), $postId);
+                $this->savePostReference($checkSum, $entry->getId(), $postId);
             } elseif (($postId = $this->entryChanged($entry->getId(), $checkSum))) {
                 $updated = $this->updatePost($postId, $postData, $token);
                 if (!$updated) {
@@ -83,7 +83,7 @@ class EntryPoster extends Component
                     //Todo set the post_on_facebook and save the entry
                     return false;
                 }
-                $this->saveCheckSum($checkSum, $entry->getId(), $postId);
+                $this->savePostReference($checkSum, $entry->getId(), $postId);
             }
         }
         return true;
@@ -130,7 +130,7 @@ class EntryPoster extends Component
             return $response->getDecodedBody()['id'] ?? true;
         } catch (\Exception $e) {
             //the endpoint is the facebook if (on update)
-            $this->removeCheckSum($endPoint);
+            $this->removePostReference($endPoint);
             return false;
         }
     }
@@ -140,7 +140,7 @@ class EntryPoster extends Component
      * @param string $entryId
      * @param $facebookId
      */
-    private function saveCheckSum(string $checkSum, int $entryId, $facebookId)
+    private function savePostReference(string $checkSum, int $entryId, $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['entryId' => $entryId]);
         if (!$postMemorize) {
@@ -159,7 +159,7 @@ class EntryPoster extends Component
     /**
      * @param int $entryId
      */
-    private function removeCheckSum(string $facebookId)
+    private function removePostReference(string $facebookId)
     {
         $postMemorize = PostMemorize::findOne(['facebookId' => $facebookId]);
         if ($postMemorize) {
