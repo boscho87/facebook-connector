@@ -57,13 +57,9 @@ return function (Entry $entry) {
 };
 ```
 
- - Add Configure screenshot and explenation here
- 
-## Using FacebookConnector
-### Todo write doc for this!
+[because i am Lazy here a youtube link](https://link.com)
 
 ## FacebookConnector Roadmap
-
 Some things to do:
 
 * Refactor the EntryPoster
