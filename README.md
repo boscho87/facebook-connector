@@ -12,7 +12,7 @@ Connect your Website with a Facebook Page
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
 
 ## Contribute to the Project
-  [read how to contribute](CONTRIBUTE.md)
+if you want to help with this project, [read how to contribute](CONTRIBUTE.md)
 
 ## Installation
 To install the plugin, follow these instructions.

@@ -8,6 +8,7 @@ Pull requests should clearly describe the problem and solution. Include the rele
 
 ## Code Style
 Code should follow the PSR-2 Standard, here is the condesniffer configuration i use for the project.
+
 ```xml
 <?xml version="1.0"?>
 <ruleset name="IOTCloudStandard">
