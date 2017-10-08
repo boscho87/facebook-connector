@@ -57,7 +57,7 @@ return function (Entry $entry) {
 };
 ```
 
-Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com) where the whole setup is explained
+Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com), where the whole setup is explained
      
      feel free to Contribute a written description :)
  
@@ -66,9 +66,6 @@ Some things to do:
 
 * Refactor the EntryPoster
 * Finish the Documentation
-* Testing
-* Bugfixing
-* Release it
 * Add more features [Ideas]-[priority 1=high 5=low] 
     - Get Events from Facebook  - 2 (CronJobbed Task)
     - Add possibility to choose user to post - 5
