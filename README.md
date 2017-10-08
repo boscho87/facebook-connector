@@ -57,13 +57,14 @@ return function (Entry $entry) {
 };
 ```
 
-[because i am Lazy here a youtube link](https://link.com)
-
+Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com) where the whole setup is explained
+     
+     feel free to Contribute a written description :)
+ 
 ## FacebookConnector Roadmap
 Some things to do:
 
 * Refactor the EntryPoster
-* Crate a cool Icon
 * Finish the Documentation
 * Testing
 * Bugfixing
