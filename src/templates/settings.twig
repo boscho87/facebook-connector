@@ -16,10 +16,47 @@
 
 {% do view.registerAssetBundle("itscoding\\facebookconnector\\assetbundles\\facebookconnector\\FacebookConnectorAsset") %}
 
+<hr>
+<h2>Description</h2>
+<p>
+    Create a facebook app @
+    <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a>
+    and fill in the settings.
+</p>
+<hr>
+<h2>OAuth Settings</h2>
 {{ forms.textField({
-    label: 'Some Field',
+    label: 'Facebook API Version',
+    instructions: 'Version of the api (configurable in the facebook app)',
+    id: 'apiVersion',
+    type: 'apiVersion',
+    name: 'apiVersion',
+    value: settings['apiVersion']}) }}
+
+
+{{ forms.textField({
+    label: 'Facebook App ID'|t,
     instructions: 'Enter some setting here.',
-    id: 'someAttribute',
-    name: 'someAttribute',
-    value: settings['someAttribute']})
-}}
+    id: 'appId',
+    name: 'appId',
+    value: settings['appId']}) }}
+
+
+{{ forms.textField({
+    label: 'Facebook App Secret',
+    instructions: 'Enter some setting here.',
+    id: 'appSecret',
+    type: 'password',
+    name: 'appSecret',
+    value: settings['appSecret']}) }}
+
+<hr>
+<h2>{{ 'Page Options'|t }}</h2>
+{{ forms.textField({
+    label: 'Page To Post to',
+    instructions: 'Id of the page to post to',
+    id: 'pageId',
+    type: 'pageId',
+    name: 'pageId',
+    value: settings['pageId']}) }}
+

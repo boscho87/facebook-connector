@@ -5,38 +5,34 @@ Connect your Website with a Facebook Page
 
 ![Screenshot](resources/img/plugin-logo.png)
 
-## Requirements
+## FacebookConnector Overview
+ ### Post your Craft entry on facebook in no Time!
+ ### Todo write doc for this!
 
+## Requirements
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
 
 ## Contribute to the Project
-
   - I will create a "CONTRIBUTE.md" file
 
 ## Installation
-
 To install the plugin, follow these instructions.
-
 1. Open your terminal and go to your Craft project:
+
         cd /path/to/project
-
+        
 2. Then tell Composer to load the plugin:
-        composer require boscho87/facebook-connector
 
+       composer require itscoding/facebook-connector
+       
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for FacebookConnector.
 
-## FacebookConnector Overview
- ### Post your Craft entry on facebook in no Time!
-
- - the name is not 100% Okay, for now its only to post craft entries to facebook when the entry will be saved
+4. Configure the plugin
 
 ## Configuring FacebookConnector
-
-
-
 ### Post an Entry on facebook
-add the file fieldconfig.php and return a callable that returns an array with your fileds
-`/var/www/htdocs/craft/fieldconfig.php`
+add the file fieldconfig.php and return a callable that returns an array with your fields
+`/path/to/project/fieldconfig.php`
 
 ```php
 <?php
@@ -64,22 +60,23 @@ return function (Entry $entry) {
 
  - Add Configure screenshot and explenation here
  
- 
 ## Using FacebookConnector
-
 ### Todo write doc for this!
 
 ## FacebookConnector Roadmap
 
 Some things to do:
 
-* Create a translation for the german language
+* Refactor the EntryPoster
 * Crate a cool Icon
+* Finish the Documentation
 * Testing
 * Bugfixing
-* Codeguideline fixes
 * Release it
-* Finish the Documentation
-* Add more features
+* Add more features [Ideas]-[priority 1=high 5=low] 
+    - Get Events from Facebook  - 2 (CronJobbed Task)
+    - Add possibility to choose user to post - 5
+    - Show Likes(and like infos) to an entry on the Website - 2
+    - etc. (contact me if you have an idea) 
 
 Brought to you by [Simon Müller itsCoding](https://www.itscoding.ch)
