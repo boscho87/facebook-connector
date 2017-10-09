@@ -34,35 +34,20 @@ abstract class AbstractPostHandler
      * execute the post method from the facebook sdk
      * @param string $endPoint
      * @param array $postData
-     * @param AccessToken $token
+     * @param string $token
      * @return bool
      */
-    protected function sendRequest(string $endPoint, array $postData, AccessToken $token)
-    {
-        try {
-            $response = $this->facebook->post(
-                $endPoint,
-                $postData,
-                FacebookConnector::$plugin->tokenLoader->exchangePageToken($token)
-            );
-            //if its a new post return the id of the created post, else return just true
-            return $response->getDecodedBody()['id'] ?? true;
-        } catch (\Exception $e) {
-            //if the post is not working
-            // $this->removePostReference($endPoint);
-            return false;
-        }
-    }
+    protected abstract function sendRequest(string $endPoint, array $postData, string $token);
 
     /**
-     * template method to post the entries
-     * @param $postData
-     * @param $token
-     * @param $entryId
+     * @param array $postData
+     * @param AccessToken $token
+     * @param int $entryId
      * @return bool
      */
-    public function post($postData, $token, $entryId)
+    public function post(array $postData, AccessToken $token, int $entryId)
     {
+        $token = FacebookConnector::$plugin->tokenLoader->exchangePageToken($token);
         $postId = $this->submitPost($postData, $token, $entryId);
         if ($postId) {
             return $this->savePostReference($this->getCheckSum($postData), $entryId, $postId);

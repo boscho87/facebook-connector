@@ -35,4 +35,23 @@ class PostCreator extends AbstractPostHandler
         $pageId = FacebookConnector::getInstance()->getSettings()->pageId;
         return $this->sendRequest($pageId . '/feed', $postData, $token);
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function sendRequest(string $endPoint, array $postData, string $token)
+    {
+        try {
+            $response = $this->facebook->post(
+                $endPoint,
+                $postData,
+                $token
+            );
+            return $response->getDecodedBody()['id'];
+        } catch (\Exception $e) {
+            //Todo handle the case if post does not work
+            return false;
+        }
+    }
 }

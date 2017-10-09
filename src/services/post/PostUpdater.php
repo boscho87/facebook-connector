@@ -59,4 +59,22 @@ class PostUpdater extends AbstractPostHandler
         }
         return false;
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function sendRequest(string $postId, array $postData, string $token)
+    {
+        try {
+            $this->facebook->post(
+                $postId,
+                $postData,
+                $token
+            );
+            return true;
+        } catch (\Exception $e) {
+            //Todo handle the case if update does not work
+            return false;
+        }
+    }
 }
