@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\services\post;
 
-
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 

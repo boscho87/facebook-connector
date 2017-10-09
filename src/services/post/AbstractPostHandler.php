@@ -8,11 +8,9 @@
 
 namespace itscoding\facebookconnector\services\post;
 
-
 use Facebook\Authentication\AccessToken;
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
-
 
 abstract class AbstractPostHandler
 {
@@ -37,7 +35,7 @@ abstract class AbstractPostHandler
      * @param string $token
      * @return bool
      */
-    protected abstract function sendRequest(string $endPoint, array $postData, string $token);
+    abstract protected function sendRequest(string $endPoint, array $postData, string $token);
 
     /**
      * @param array $postData
@@ -71,7 +69,7 @@ abstract class AbstractPostHandler
      * @param $entryId
      * @return mixed
      */
-    protected abstract function submitPost($postData, $token, $entryId);
+    abstract protected function submitPost($postData, $token, $entryId);
 
     /**
      * update the post reference to the local database
@@ -80,7 +78,7 @@ abstract class AbstractPostHandler
      * @param $facebookId
      * @return bool
      */
-    protected abstract function savePostReference(string $checkSum, int $entryId, $facebookId): bool;
+    abstract protected function savePostReference(string $checkSum, int $entryId, $facebookId): bool;
 
     /**
      * @param int $entryId
@@ -93,5 +91,4 @@ abstract class AbstractPostHandler
         }
         return false;
     }
-
 }

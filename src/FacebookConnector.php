@@ -87,7 +87,7 @@ class FacebookConnector extends Plugin
                     $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
                     if (!count($errors) > 0) {
                         Craft::$app->session->setNotice(
-                            Craft::t('facebook-connector','Loaded a Valid Token')
+                            Craft::t('facebook-connector', 'Loaded a Valid Token')
                         );
                     }
                     Craft::$app->session->setError(implode(' ', $errors));

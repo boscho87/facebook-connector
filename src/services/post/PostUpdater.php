@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\services\post;
 
-
 use itscoding\facebookconnector\records\PostMemorize;
 
 class PostUpdater extends AbstractPostHandler
