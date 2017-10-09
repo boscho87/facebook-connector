@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Contribute Text
   - Added Link to the Youtube Configuration description
   
+### Changed
+  - Refactored the EntryPoster  
+  
 ## v0.15.0 - 2017-10-08
 ### Changed
   - Readme Update

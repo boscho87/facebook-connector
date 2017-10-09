@@ -64,7 +64,6 @@ Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://
 ## FacebookConnector Roadmap
 Some things to do:
 
-* Refactor the EntryPoster
 * Finish the Documentation
 * Add more features [Ideas]-[priority 1=high 5=low] 
     - Get Events from Facebook  - 2 (CronJobbed Task)
