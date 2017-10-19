@@ -3,17 +3,16 @@
 
 Connect your Website with a Facebook Page
 
-![Screenshot](resources/img/plugin-logo.png)
+![Screenshot](resources/img/icon.png)
 
 ## FacebookConnector Overview
- ### Post your Craft entry on facebook in no Time!
- ### Todo write doc for this!
+ ### Post your Craft entry as a Post on Facebook with simple Setup
 
 ## Requirements
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
 
 ## Contribute to the Project
-  - I will create a "CONTRIBUTE.md" file
+if you want to help with this project, [read how to contribute](CONTRIBUTE.md)
 
 ## Installation
 To install the plugin, follow these instructions.
@@ -58,21 +57,14 @@ return function (Entry $entry) {
 };
 ```
 
- - Add Configure screenshot and explenation here
+Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com), where the whole setup is explained
+     
+     feel free to Contribute a written description :)
  
-## Using FacebookConnector
-### Todo write doc for this!
-
 ## FacebookConnector Roadmap
-
 Some things to do:
 
-* Refactor the EntryPoster
-* Crate a cool Icon
 * Finish the Documentation
-* Testing
-* Bugfixing
-* Release it
 * Add more features [Ideas]-[priority 1=high 5=low] 
     - Get Events from Facebook  - 2 (CronJobbed Task)
     - Add possibility to choose user to post - 5
