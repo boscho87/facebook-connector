@@ -47,7 +47,6 @@ class EntryFetcher extends Component
      */
     private $fb;
 
-
     /**
      * this function is invoked by craft (use it like a constuctor)
      */
@@ -58,10 +57,16 @@ class EntryFetcher extends Component
         $this->fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
     }
 
+
+    /**
+     *  Todo rename this  or even remove it when its not used
+     */
     public function getEntry()
     {
-        $entries = $this->fetchAll();
-        echo json_encode($entries);
+        //$entries = $this->fetchAll(time());
+        //echo json_encode($entries);
+        $details = $this->getEntryAttachments('150260586243_10154816609271244');;
+        echo '<img src="' . $details->media->image->src . '"/>';
         die();
     }
 
@@ -85,6 +90,33 @@ class EntryFetcher extends Component
     }
 
     /**
+     * @param string $id
+     * @return \stdClass
+     */
+    public function getEntryAttachments(string $id)
+    {
+        $response = $this->fb->get($id.'/attachments', $this->token);
+        return json_decode($response->getBody())->data[0];
+    }
+
+    /**
+     * @param $entries
+     * @param $limit
+     * @return array
+     */
+    private function getPageEntries(): array
+    {
+        if ($this->nextLink) {
+            $this->nextLink = str_replace($this->getApiUrl(), '', $this->nextLink);
+            $response = $this->fb->get($this->nextLink, $this->token);
+        } else {
+            $response = $this->fb->get(FacebookConnector::getInstance()->getSettings()->pageId . '/feed', $this->token);
+        }
+        $this->nextLink = json_decode($response->getBody())->paging->next ?? null;
+        return json_decode($response->getBody())->data ?? [];
+    }
+
+    /**
      * @param $entries
      * @param $latestDate
      * @return bool
@@ -101,23 +133,6 @@ class EntryFetcher extends Component
     private function getApiUrl()
     {
         return $this->fb->getClient()->getBaseGraphUrl() . '/' . $this->fb->getDefaultGraphVersion();
-    }
-
-    /**
-     * @param $entries
-     * @param $limit
-     * @return array
-     */
-    private function getPageEntries(): array
-    {
-        if ($this->nextLink) {
-            $this->nextLink = str_replace($this->getApiUrl(), '', $this->nextLink);
-            $response = $this->fb->get($this->nextLink, $this->token);
-        } else {
-            $response = $this->fb->get(FacebookConnector::getInstance()->getSettings()->pageId . '/posts', $this->token);
-        }
-        $this->nextLink = json_decode($response->getBody())->paging->next ?? null;
-        return json_decode($response->getBody())->data ?? [];
     }
 
 }
