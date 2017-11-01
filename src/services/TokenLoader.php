@@ -45,14 +45,13 @@ class TokenLoader extends Component
 
     private $apiVersion = '';
 
-    private $initialized = false;
 
     /**
-     * initialize all the options
+     * this function is invoked by craft (use it like a constuctor)
      */
-    public function initialize()
+    public function init()
     {
-        $this->initialized = true;
+        parent::init();
         $settings = FacebookConnector::getInstance()->getSettings();
         $this->appId = $settings->appId;
         $this->appSecret = $settings->appSecret;
@@ -61,15 +60,13 @@ class TokenLoader extends Component
         $this->baseUrl = Craft::$app->request->getHostInfo();
     }
 
+
     /**
      * FacebookConnector::$plugin->tokenLoader->getFacebookInstance()
      * @return Facebook
      */
     public function getFacebookInstance()
     {
-        if (!$this->initialized) {
-            $this->initialize();
-        }
         return new Facebook([
             'app_id' => $this->appId,
             'app_secret' => $this->appSecret,

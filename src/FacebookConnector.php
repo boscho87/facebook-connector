@@ -69,8 +69,7 @@ class FacebookConnector extends Plugin
             'entryFetcher' => EntryFetcherService::class
         ]);
 
-        //Todo remove this if its tested
-        FacebookConnector::$plugin->entryFetcher->getEntry();
+
 
         Event::on(
             Entry::class,
@@ -86,6 +85,8 @@ class FacebookConnector extends Plugin
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
+                //Todo remove this if its tested
+                FacebookConnector::$plugin->entryFetcher->getEntry();
                 if (Craft::$app->request->get('code')) {
                     //handle facebook callback
                     FacebookConnector::$plugin->tokenLoader->handleCallback();

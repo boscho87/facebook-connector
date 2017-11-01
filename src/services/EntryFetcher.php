@@ -28,48 +28,71 @@ class EntryFetcher extends Component
 {
 
     /**
+     * @var int
+     */
+    private $pageLimit = 15;
+
+    /**
+     * @var string|null
+     */
+    private $nextLink;
+
+    /**
+     * @var  string
+     */
+    private $token;
+
+    /**
      * @var Facebook
      */
     private $fb;
 
+
+    /**
+     * this function is invoked by craft (use it like a constuctor)
+     */
+    public function init()
+    {
+        parent::init();
+        $this->token = FacebookConnector::$plugin->tokenLoader->loadValidToken();
+        $this->fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+    }
+
     public function getEntry()
     {
-        session_start();
-        $entries = $this->loadAllEntries();
+        $entries = $this->fetchAll();
+        echo json_encode($entries);
+        die();
     }
 
     /**
      * get all pages (with the next link)
+     * @param int|null $latestDate if this is set,
+     * next page only loads when it has newer entries than this date
      * @return array
      */
-    public function loadAllEntries()
+    public function fetchAll(int $latestDate = 0)
     {
-        $token = FacebookConnector::$plugin->tokenLoader->loadValidToken();
-        $this->fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
-        $nextLink = null;
-        $entries = [];
+        $limit = $this->pageLimit;
         do {
-            if ($nextLink) {
-                $nextLink = str_replace($this->getApiUrl(), '', $nextLink);
-                $response = $this->fb->get($nextLink, $token);
-            } else {
-                $response = $this->fb->get(FacebookConnector::getInstance()->getSettings()->pageId . '/posts', $token);
+            $entries[] = $this->getPageEntries();
+            $limit--;
+            if (!$this->checkIfDateInRange($entries, $latestDate)) {
+                break;
             }
-            $nextLink = json_decode($response->getBody())->paging->next ?? null;
-            $entries[] = json_decode($response->getBody())->data ?? [];
-        } while (isset($nextLink));
+        } while (isset($this->nextLink) && $limit > 0);
         return array_merge(...$entries);
     }
 
-
     /**
-     * @param int $timestamp
+     * @param $entries
+     * @param $latestDate
+     * @return bool
      */
-    public function loadEntriesUntilDate(int $timestamp)
+    private function checkIfDateInRange($entries, $latestDate)
     {
-        $date = strtotime('Y-m-d H:i:s', $timestamp);
-        //Todo implement method
-
+        $created = end($entries[count($entries) - 1])->created_time;
+        return strtotime($latestDate) < strtotime($created);
     }
 
     /**
@@ -78,6 +101,23 @@ class EntryFetcher extends Component
     private function getApiUrl()
     {
         return $this->fb->getClient()->getBaseGraphUrl() . '/' . $this->fb->getDefaultGraphVersion();
+    }
+
+    /**
+     * @param $entries
+     * @param $limit
+     * @return array
+     */
+    private function getPageEntries(): array
+    {
+        if ($this->nextLink) {
+            $this->nextLink = str_replace($this->getApiUrl(), '', $this->nextLink);
+            $response = $this->fb->get($this->nextLink, $this->token);
+        } else {
+            $response = $this->fb->get(FacebookConnector::getInstance()->getSettings()->pageId . '/posts', $this->token);
+        }
+        $this->nextLink = json_decode($response->getBody())->paging->next ?? null;
+        return json_decode($response->getBody())->data ?? [];
     }
 
 }
