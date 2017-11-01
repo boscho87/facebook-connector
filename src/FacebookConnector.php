@@ -11,7 +11,7 @@
 namespace itscoding\facebookconnector;
 
 use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
-use itscoding\facebookconnector\services\EntryFetcher as EventFetcherService;
+use itscoding\facebookconnector\services\EntryFetcher as EntryFetcherService;
 use itscoding\facebookconnector\services\TokenLoader as TokenLoaderService;
 use itscoding\facebookconnector\services\EntryPoster;
 use itscoding\facebookconnector\services\EntryFetcher;
@@ -64,9 +64,9 @@ class FacebookConnector extends Plugin
 
 
         $this->setComponents([
-            'tokenLoader' => TokenLoader::class,
-            'entryPoster' => EntryPoster::class,
-            'entryFetcher' => EntryFetcher::class
+            'tokenLoader' => TokenLoaderService::class,
+            'entryPoster' => EntryPosterService::class,
+            'entryFetcher' => EntryFetcherService::class
         ]);
 
         //Todo remove this if its tested
