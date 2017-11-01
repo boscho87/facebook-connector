@@ -11,10 +11,10 @@
 namespace itscoding\facebookconnector;
 
 use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
-use itscoding\facebookconnector\services\EventFetcher as EventFetcherService;
+use itscoding\facebookconnector\services\EntryFetcher as EventFetcherService;
 use itscoding\facebookconnector\services\TokenLoader as TokenLoaderService;
 use itscoding\facebookconnector\services\EntryPoster;
-use itscoding\facebookconnector\services\EventFetcher;
+use itscoding\facebookconnector\services\EntryFetcher;
 use itscoding\facebookconnector\models\Settings;
 use itscoding\facebookconnector\services\TokenLoader;
 use itscoding\facebookconnector\widgets\OAuth;
@@ -61,11 +61,16 @@ class FacebookConnector extends Plugin
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
+
+
         $this->setComponents([
             'tokenLoader' => TokenLoader::class,
             'entryPoster' => EntryPoster::class,
-            'eventFetcher' => EventFetcher::class
+            'entryFetcher' => EntryFetcher::class
         ]);
+
+        //Todo remove this if its tested
+        FacebookConnector::$plugin->entryFetcher->getEntry();
 
         Event::on(
             Entry::class,
