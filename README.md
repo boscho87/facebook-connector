@@ -39,6 +39,13 @@ use itscoding\facebookconnector\FacebookConnector;
 use craft\elements\Entry;
 
 return function (Entry $entry) {
+   
+    //you can to some fancy stuff with callables 👍 !
+    $description = function() use ($entry){
+      return $entry->teaserSubTitle;  
+    };
+    
+    //callables will not work here!
     return [
         //if true, the message is posted {default:true}
         'post_on_facebook' => $entry->post_on_facebook,
@@ -52,12 +59,12 @@ return function (Entry $entry) {
         //field to get the caption from {default:''}
         'caption' => $entry->getAuthor()->getName(),
         //field to get the description from {default:''}
-        'description' => $entry->teaserSubTitle
+        'description' => $description() 
     ];
 };
 ```
 
-Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com), where the whole setup is explained
+Because i'm too lazy (I do not like writing Tutorials) [here is a youtube link](https://link.com), where the whole setup is explained
      
      feel free to Contribute a written description :)
  
@@ -66,7 +73,7 @@ Some things to do:
 
 * Finish the Documentation
 * Add more features [Ideas]-[priority 1=high 5=low] 
-    - Get Events from Facebook  - 2 (CronJobbed Task) [In Progress] #16 #
+    - Get Events from Facebook  - 2 (CronJobbed Task) [In Progress] #16
     - Add possibility to choose user to post - 5
     - Show Likes(and like infos) to an entry on the Website - 4
     - etc. (contact me if you have an idea) 

@@ -13,6 +13,8 @@ ____
 ### Added
   - Contribute Text
   - Added Link to the Youtube Configuration description
+### Fixed
+  - Updated the Documentation how its possible to use functions in `fieldconfig.php` #13
   
 ### Changed
   - Refactored the EntryPoster  
