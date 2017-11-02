@@ -66,7 +66,7 @@ Some things to do:
 
 * Finish the Documentation
 * Add more features [Ideas]-[priority 1=high 5=low] 
-    - Get Events from Facebook  - 2 (CronJobbed Task) [In Progress]
+    - Get Events from Facebook  - 2 (CronJobbed Task) [In Progress] #16 #
     - Add possibility to choose user to post - 5
     - Show Likes(and like infos) to an entry on the Website - 4
     - etc. (contact me if you have an idea) 
