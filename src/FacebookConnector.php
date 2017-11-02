@@ -34,7 +34,7 @@ use yii\base\Event;
  * @since     0.1.0
  *
  * @property  EntryPosterService $entryPoster
- * @property  EventFetcherService $eventFetcher
+ * @property  EntryFetcherService $entryFetcher
  * @property  TokenLoaderService $tokenLoader
  * @property  Settings $settings
  * @method    Settings getSettings()
@@ -54,51 +54,43 @@ class FacebookConnector extends Plugin
      */
     public function init()
     {
-
         parent::init();
         self::$plugin = $this;
         // Add in our console commands
         if (Craft::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'itscoding\facebookconnector\console\controllers';
         }
-
-
         $this->setComponents([
             'tokenLoader' => TokenLoaderService::class,
             'entryPoster' => EntryPosterService::class,
             'entryFetcher' => EntryFetcherService::class
         ]);
 
-
-
-        Event::on(
-            Entry::class,
-            Entry::EVENT_AFTER_SAVE,
-            function (ModelEvent $event) {
-                if ($event->isValid) {
-                    FacebookConnector::$plugin->entryPoster->post($event->sender);
-                }
+        Event::on(Entry::class, Entry::EVENT_AFTER_SAVE, function (ModelEvent $event) {
+            if ($event->isValid) {
+                FacebookConnector::$plugin->entryPoster->post($event->sender);
             }
+        }
         );
 
-        Event::on(
-            Dashboard::class,
-            Dashboard::EVENT_REGISTER_WIDGET_TYPES,
-            function (RegisterComponentTypesEvent $event) {
-                //Todo remove this if its tested
-                //FacebookConnector::$plugin->entryFetcher->getEntry();
-                if (Craft::$app->request->get('code')) {
-                    FacebookConnector::$plugin->tokenLoader->handleCallback();
-                    $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
-                    if ((!count($errors)) > 0) {
-                        Craft::$app->session->setNotice(
-                            Craft::t('facebook-connector', 'Loaded a Valid Token')
-                        );
-                    }
-                    Craft::$app->session->setError(implode(' ', $errors));
+        Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function (RegisterComponentTypesEvent $event) {
+
+            //Todo remove this if its tested
+            FacebookConnector::$plugin->entryFetcher->getEntry();
+
+
+            if (Craft::$app->request->get('code')) {
+                FacebookConnector::$plugin->tokenLoader->handleCallback();
+                $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
+                if ((!count($errors)) > 0) {
+                    Craft::$app->session->setNotice(
+                        Craft::t('facebook-connector', 'Loaded a Valid Token')
+                    );
                 }
-                $event->types[] = OAuth::class;
+                Craft::$app->session->setError(implode(' ', $errors));
             }
+            $event->types[] = OAuth::class;
+        }
         );
 
         /**
