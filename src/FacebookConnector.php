@@ -86,12 +86,11 @@ class FacebookConnector extends Plugin
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function (RegisterComponentTypesEvent $event) {
                 //Todo remove this if its tested
-                FacebookConnector::$plugin->entryFetcher->getEntry();
+                //FacebookConnector::$plugin->entryFetcher->getEntry();
                 if (Craft::$app->request->get('code')) {
-                    //handle facebook callback
                     FacebookConnector::$plugin->tokenLoader->handleCallback();
                     $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
-                    if (!count($errors) > 0) {
+                    if ((!count($errors)) > 0) {
                         Craft::$app->session->setNotice(
                             Craft::t('facebook-connector', 'Loaded a Valid Token')
                         );

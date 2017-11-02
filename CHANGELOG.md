@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.17.0 - 2017-11-02
+   - Started with Implementation of "fetch Facebook Feed" 
+
+#### Pre Release 
+____
 ## v0.16.0 - 2017-10-08
 ### Added
   - Contribute Text
