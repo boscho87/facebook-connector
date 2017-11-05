@@ -45,7 +45,6 @@ class TokenLoader extends Component
 
     private $apiVersion = '';
 
-
     /**
      * this function is invoked by craft (use it like a constuctor)
      */
@@ -57,7 +56,9 @@ class TokenLoader extends Component
         $this->appSecret = $settings->appSecret;
         $this->apiVersion = $settings->apiVersion;
         $this->pageId = $settings->pageId;
-        $this->baseUrl = Craft::$app->request->getHostInfo();
+        if (!$this->isCliMode()) {
+            $this->baseUrl = Craft::$app->request->getHostInfo();
+        }
     }
 
 
@@ -67,12 +68,15 @@ class TokenLoader extends Component
      */
     public function getFacebookInstance()
     {
-        return new Facebook([
+        $settings = [
             'app_id' => $this->appId,
             'app_secret' => $this->appSecret,
             'default_graph_version' => $this->apiVersion,
-            'persistent_data_handler' => 'session'
-        ]);
+        ];
+        if (!$this->isCliMode()) {
+            $settings['persistent_data_handler'] = 'session';
+        }
+        return new Facebook($settings);
     }
 
     /**
@@ -237,5 +241,13 @@ class TokenLoader extends Component
     public function getErrorMessages(): array
     {
         return $this->errorMessages;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCliMode()
+    {
+        return php_sapi_name() === 'cli';
     }
 }

@@ -65,7 +65,6 @@ class EntryPoster extends Component
         if (!$token) {
             return $this->handleInvalidToken($token);
         }
-
         $postData = $this->getPostData($entry);
         if ($postData['post_on_facebook']) {
             $postHandler = $this->loadPostHandler($entry->getId());

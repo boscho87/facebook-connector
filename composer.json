@@ -39,13 +39,15 @@
     "extra": {
         "name": "FacebookConnector",
         "handle": "facebook-connector",
-        "schemaVersion": "0.1.0",
+        "schemaVersion": "1.0.0",
         "hasCpSettings": true,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/master/CHANGELOG.md",
         "components": {
             "entryPoster": "itscoding\\facebookconnector\\services\\EntryPoster",
-            "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher"
+            "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher",
+            "eventPersist": "itscoding\\facebookconnector\\services\\EventPersist",
+            "TokenLoader": "itscoding\\facebookconnector\\services\\TokenLoader"
         },
         "class": "itscoding\\facebookconnector\\FacebookConnector"
     },

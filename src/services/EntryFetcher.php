@@ -11,8 +11,6 @@
 namespace itscoding\facebookconnector\services;
 
 use Facebook\Facebook;
-use Facebook\FacebookRequest;
-use Facebook\GraphNodes\GraphEdge;
 use itscoding\facebookconnector\FacebookConnector;
 
 use craft\base\Component;
@@ -57,19 +55,6 @@ class EntryFetcher extends Component
         $this->fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
     }
 
-
-    /**
-     *  Todo rename this  or even remove it when its not used
-     */
-    public function getEntry()
-    {
-        //$entries = $this->fetchAll(time());
-        //echo json_encode($entries);
-        $details = $this->getEntryAttachments('150260586243_10154816609271244');;
-        echo '<img src="' . $details->media->image->src . '"/>';
-        die();
-    }
-
     /**
      * get all pages (with the next link)
      * @param int|null $latestDate if this is set,
@@ -91,12 +76,16 @@ class EntryFetcher extends Component
 
     /**
      * @param string $id
-     * @return \stdClass
+     * @return string
      */
     public function getEntryAttachments(string $id)
     {
-        $response = $this->fb->get($id.'/attachments', $this->token);
-        return json_decode($response->getBody())->data[0];
+        try {
+            $response = $this->fb->get($id . '/attachments', $this->token);
+            return json_decode($response->getBody())->data[0];
+        } catch (\Exception $exception) {
+            return '';
+        }
     }
 
     /**
@@ -124,7 +113,7 @@ class EntryFetcher extends Component
     private function checkIfDateInRange($entries, $latestDate)
     {
         $created = end($entries[count($entries) - 1])->created_time;
-        return strtotime($latestDate) < strtotime($created);
+        return $latestDate < strtotime($created);
     }
 
     /**

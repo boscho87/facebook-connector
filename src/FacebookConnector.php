@@ -10,6 +10,8 @@
 
 namespace itscoding\facebookconnector;
 
+use craft\web\twig\variables\CraftVariable;
+use itscoding\facebookconnector\services\EntryPersist as EntryPersistService;
 use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
 use itscoding\facebookconnector\services\EntryFetcher as EntryFetcherService;
 use itscoding\facebookconnector\services\TokenLoader as TokenLoaderService;
@@ -17,6 +19,7 @@ use itscoding\facebookconnector\services\EntryPoster;
 use itscoding\facebookconnector\services\EntryFetcher;
 use itscoding\facebookconnector\models\Settings;
 use itscoding\facebookconnector\services\TokenLoader;
+use itscoding\facebookconnector\variables\EntryVariable;
 use itscoding\facebookconnector\widgets\OAuth;
 use Craft;
 use craft\base\Plugin;
@@ -63,8 +66,19 @@ class FacebookConnector extends Plugin
         $this->setComponents([
             'tokenLoader' => TokenLoaderService::class,
             'entryPoster' => EntryPosterService::class,
-            'entryFetcher' => EntryFetcherService::class
+            'entryFetcher' => EntryFetcherService::class,
+            'entryPersist' => EntryPersistService::class
         ]);
+
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('facebook', EntryVariable::class);
+            }
+        );
 
         Event::on(Entry::class, Entry::EVENT_AFTER_SAVE, function (ModelEvent $event) {
             if ($event->isValid) {
@@ -74,11 +88,6 @@ class FacebookConnector extends Plugin
         );
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function (RegisterComponentTypesEvent $event) {
-
-            //Todo remove this if its tested
-            FacebookConnector::$plugin->entryFetcher->getEntry();
-
-
             if (Craft::$app->request->get('code')) {
                 FacebookConnector::$plugin->tokenLoader->handleCallback();
                 $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
