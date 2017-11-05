@@ -43,7 +43,7 @@ class EntryFetcher extends Component
     /**
      * @var Facebook
      */
-    private $fb;
+    private $facebook;
 
     /**
      * this function is invoked by craft (use it like a constuctor)
@@ -52,7 +52,7 @@ class EntryFetcher extends Component
     {
         parent::init();
         $this->token = FacebookConnector::$plugin->tokenLoader->loadValidToken();
-        $this->fb = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+        $this->facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
     }
 
     /**
@@ -75,13 +75,13 @@ class EntryFetcher extends Component
     }
 
     /**
-     * @param string $id
+     * @param string $entryId
      * @return string
      */
-    public function getEntryAttachments(string $id)
+    public function getEntryAttachments(string $entryId)
     {
         try {
-            $response = $this->fb->get($id . '/attachments', $this->token);
+            $response = $this->facebook->get($entryId . '/attachments', $this->token);
             return json_decode($response->getBody())->data[0];
         } catch (\Exception $exception) {
             return '';
@@ -97,9 +97,10 @@ class EntryFetcher extends Component
     {
         if ($this->nextLink) {
             $this->nextLink = str_replace($this->getApiUrl(), '', $this->nextLink);
-            $response = $this->fb->get($this->nextLink, $this->token);
+            $response = $this->facebook->get($this->nextLink, $this->token);
         } else {
-            $response = $this->fb->get(FacebookConnector::getInstance()->getSettings()->pageId . '/feed', $this->token);
+            $response = $this->facebook->get(FacebookConnector::getInstance()
+                    ->getSettings()->pageId . '/feed', $this->token);
         }
         $this->nextLink = json_decode($response->getBody())->paging->next ?? null;
         return json_decode($response->getBody())->data ?? [];
@@ -121,6 +122,6 @@ class EntryFetcher extends Component
      */
     private function getApiUrl()
     {
-        return $this->fb->getClient()->getBaseGraphUrl() . '/' . $this->fb->getDefaultGraphVersion();
+        return $this->facebook->getClient()->getBaseGraphUrl() . '/' . $this->facebook->getDefaultGraphVersion();
     }
 }
