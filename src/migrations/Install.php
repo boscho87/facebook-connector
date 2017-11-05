@@ -57,7 +57,6 @@ class Install extends Migration
     protected function createTables()
     {
         $tablesCreated = false;
-
         $tableSchema = Craft::$app->db->schema->getTableSchema('{{%facebookconnector_accesstoken}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
@@ -72,7 +71,6 @@ class Install extends Migration
                 ]
             );
         }
-
         $tableSchema = Craft::$app->db->schema->getTableSchema('{{%facebookconnector_postmemorize}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
@@ -89,6 +87,32 @@ class Install extends Migration
                 ]
             );
         }
+        $tableSchema = Craft::$app->db->schema->getTableSchema('{{%facebookconnector_facebook_entry}}');
+        if ($tableSchema === null) {
+            $tablesCreated = true;
+            $this->createTable(
+                '{{%facebookconnector_facebook_entry}}',
+                [
+                    'id' => $this->primaryKey(),
+                    'fbId' => $this->string(255)->unique(),
+                    'dateCreated' => $this->dateTime()->notNull(),
+                    'dateUpdated' => $this->dateTime()->notNull(),
+                    'created' => $this->string(255)->notNull(),
+                    'has_detail' => $this->boolean(),
+                    'type' => $this->string(),
+                    'image_src' => $this->string(510),
+                    'image_height' => $this->string(),
+                    'image_width' => $this->string(),
+                    'target' => $this->string(510),
+                    'url' => $this->string(510),
+                    'internal' => $this->boolean(),
+                    'uid' => $this->uid(),
+                    'title' => $this->string(510),
+                    'video' => $this->string(510),
+                    'content' => $this->text()
+                ]
+            );
+        }
         return $tablesCreated;
     }
 
@@ -100,5 +124,6 @@ class Install extends Migration
     {
         $this->dropTableIfExists('{{%facebookconnector_accesstoken}}');
         $this->dropTableIfExists('{{%facebookconnector_postmemorize}}');
+        $this->dropTableIfExists('{{%facebookconnector_facebook_entry}}');
     }
 }

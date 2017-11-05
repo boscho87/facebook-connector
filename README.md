@@ -39,6 +39,13 @@ use itscoding\facebookconnector\FacebookConnector;
 use craft\elements\Entry;
 
 return function (Entry $entry) {
+   
+    //you can to some fancy stuff with callables 👍 !
+    $description = function() use ($entry){
+      return $entry->teaserSubTitle;  
+    };
+    
+    //callables will not work here!
     return [
         //if true, the message is posted {default:true}
         'post_on_facebook' => $entry->post_on_facebook,
@@ -52,12 +59,89 @@ return function (Entry $entry) {
         //field to get the caption from {default:''}
         'caption' => $entry->getAuthor()->getName(),
         //field to get the description from {default:''}
-        'description' => $entry->teaserSubTitle
+        'description' => $description() 
     ];
 };
 ```
 
-Because i'm Lazy (I do not like writing Tutorial) [here a youtube link](https://link.com), where the whole setup is explained
+### Fetch Entries from facebook
+To fetch entries from Facebook, you need to run some scripts (if you need to reload posts automatic, setup cronjobs for this)
+
+```shell
+#in your project (craft) dir run:
+php craft facebook-connector/entry-fetch/fetch-list #loads a list with the entries (id, title and content)
+php craft facebook-connector/entry-fetch/fetch-detail #loads the details for all entries, saved before
+```
+be aware, that the entries are incomplete, if the details are missing! (you can check in your twig template if an entry is incomplete, before you render it)
+
+##### Entry properties:
+```php
+  [
+    'id' => $this->primaryKey(),  // like every craft entry
+    'fbId' => $this->string(255)->unique(),
+    'dateCreated' => $this->dateTime()->notNull(), // like every craft entry
+    'dateUpdated' => $this->dateTime()->notNull(), // like every craft entry
+    'created' => $this->string(255)->notNull(), 
+    'has_detail' => $this->boolean(), // if the entry details are loaded 
+    'type' => $this->string(), // type like ['share','photo','youtube']
+    'image_src' => $this->string(510), //
+    'image_height' => $this->string(), //
+    'image_width' => $this->string(), // 
+    'target' => $this->string(510), // target url from facebook 
+    'url' => $this->string(510), // facebook post url
+    'internal' => $this->boolean(), // true if the post is from one of the craft pages where the plugin is installed
+    'uid' => $this->uid(), // like every craft entry
+    'title' => $this->string(510), // should be clear
+    'video' => $this->string(510), // [its a link] only set if its a video 'type' (atm. works only wiht youtube
+    'content' => $this->text() // text body 
+  ]
+```
+
+##### Example (in action)
+```html
+<div class="col-lg-8 col-md-10 mx-auto">
+    {% for fbEntry in craft.facebook.getEntries.where('internal = 0').andWhere('type != "event"').limit(3).all %}
+        <div style="position: relative;">
+            {% if fbEntry.type == 'youtube' %}
+                <h3>    {{ fbEntry.title }}    </h3>
+                <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed{{ fbEntry.video }}?rel=0&amp;controls=0&amp;showinfo=0"
+                        frameborder="0"
+                        allowfullscreen></iframe>
+            {% else %}
+                <div class="post-preview" style="float: left;width: 70%;">
+                    <h2 class="post-title">
+                        {{ fbEntry.title ?: 'Beitrag vom '~fbEntry.created|date('d.m.y') }}
+                    </h2>
+                    <p style="padding-bottom: 20px">{{ fbEntry.content }}</p>
+                    <p class="post-meta" style="bottom: 0;position: absolute; ">
+                        Gepostet auf
+                        {% if fbEntry.target %}
+                            <a href="{{ fbEntry.target }}" target="_blank"> Facebook</a>
+                        {% else %}
+                            Facebook
+                        {% endif %}
+                        am {{ fbEntry.created|date('d.m.y') }} um {{ fbEntry.created|date('H:i') }}
+                    </p>
+                </div>
+                <div style="float: left;width: 30%">
+                    {% if fbEntry.image_src %}
+                        <img class="img-fluid" src="{{ fbEntry.image_src }}" alt="">
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div style="clear: both"></div>
+            <hr>
+            </div>
+    {% endfor %}
+</div>
+```
+
+
+
+
+
+Because i'm too lazy (I do not like writing Tutorials) [here is a youtube link](https://link.com), where the whole setup is explained
      
      feel free to Contribute a written description :)
  
@@ -66,9 +150,9 @@ Some things to do:
 
 * Finish the Documentation
 * Add more features [Ideas]-[priority 1=high 5=low] 
-    - Get Events from Facebook  - 2 (CronJobbed Task)
+  
     - Add possibility to choose user to post - 5
-    - Show Likes(and like infos) to an entry on the Website - 2
+    - Show Likes(and like infos) to an entry on the Website - 4
     - etc. (contact me if you have an idea) 
 
 Brought to you by [Simon Müller itsCoding](https://www.itscoding.ch)
