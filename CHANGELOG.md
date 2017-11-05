@@ -10,11 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
    - Added a craft variable to get the entries from the database
    - Entries now "fechtable" with quries (like standard craft contents)
     
-
 ## v0.17.0 - 2017-11-02
    - Started with Implementation of "fetch Facebook Feed" 
 
-#### Pre Release 
+#### Pre Released 
 ____
 ## v0.16.0 - 2017-10-08
 ### Added
