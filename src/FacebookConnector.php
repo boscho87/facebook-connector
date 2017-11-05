@@ -84,8 +84,7 @@ class FacebookConnector extends Plugin
             if ($event->isValid) {
                 FacebookConnector::$plugin->entryPoster->post($event->sender);
             }
-        }
-        );
+        });
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function (RegisterComponentTypesEvent $event) {
             if (Craft::$app->request->get('code')) {
@@ -99,8 +98,7 @@ class FacebookConnector extends Plugin
                 Craft::$app->session->setError(implode(' ', $errors));
             }
             $event->types[] = OAuth::class;
-        }
-        );
+        });
 
         /**
          *Todo remove this comment and code if its not needed anymore

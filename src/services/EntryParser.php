@@ -31,7 +31,10 @@ class EntryParser
             $entry->type = 'notitle';
         }
         $media = $attachment->media ?? null;
-        $entry->image = $media->image ?? null;
+        $image = isset($media->image) ? $media->image : null;
+        $entry->image_src = $image->src ?? '';
+        $entry->image_height = $image->height ?? '';
+        $entry->image_width = $image->width ?? '';
         $entry->target = $attachment->target->url ?? null;
         $entry->url = $attachment->url ?? '';
         $entry->internal = $this->isInternalLink($entry->target);
@@ -50,7 +53,7 @@ class EntryParser
         if (isset($url['host'])) {
             if ($this->ifYoutubeLink($entry->content)) {
                 $entry->type = 'youtube';
-            //    $entry->video = $url['path'];
+                $entry->video = $url['path'];
                 return;
             }
             $entry->type = 'link';
@@ -71,11 +74,21 @@ class EntryParser
         return false;
     }
 
+    /**
+     * checks if a link has de host of an site registered in craft
+     * in it (the sites are stored in the DBTable sections_sites
+     * @param $url
+     * @return bool
+     */
     private function isInternalLink($url)
     {
-        //$actual_link = $_SERVER['HTTP_HOST'];
-        $actual_link = 'ddd';
-        return strpos($url, $actual_link) > 0;
+        $sites = \Craft::$app->getSites();
+        foreach ($sites as $site) {
+            $host = parse_url($site->baseUrl)['host'] ?? '';
+            if (strpos($url, $host)) {
+                return true;
+            }
+        }
+        return false;
     }
-
 }

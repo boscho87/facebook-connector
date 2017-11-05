@@ -8,11 +8,9 @@
 
 namespace itscoding\facebookconnector\services;
 
-
 use craft\base\Component;
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\FacebookEntry;
-
 
 /**
  * TokenLoader Service
@@ -41,32 +39,27 @@ class EntryPersist extends Component
     /**
      * get the attachment and save it to the entry
      */
-    public function provideAttachments()
+    public function loadEntryDetail()
     {
         $count = 0;
         $parser = new EntryParser();
         $entries = FacebookEntry::findAll(['attachment' => null]);
-        $entries = FacebookEntry::find()->all();
         foreach ($entries as $entry) {
             $count++;
             $attachment = FacebookConnector::$plugin->entryFetcher->getEntryAttachments($entry->fbId);
-            $attachment = json_encode($attachment) ?: '{}';
             $entry->title = $entry->title ?? $attachment->title ?? '';
             $entry = $parser->parseEntry($entry, $attachment);
+            $entry->attachment = 'loaded';
             $entry->update();
         }
         return $count;
     }
 
-
     /**
      * @return array|mixed
-     * //Todo implement limit and offset
      */
     public function getEntries()
     {
-        $parser = new EntryParser();
-        return FacebookEntry::find()->all();
+        return FacebookEntry::find();
     }
-
 }

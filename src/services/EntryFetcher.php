@@ -123,5 +123,4 @@ class EntryFetcher extends Component
     {
         return $this->fb->getClient()->getBaseGraphUrl() . '/' . $this->fb->getDefaultGraphVersion();
     }
-
 }

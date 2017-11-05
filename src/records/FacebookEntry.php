@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\records;
 
-
 use craft\db\ActiveRecord;
 
 class FacebookEntry extends ActiveRecord
@@ -21,5 +20,4 @@ class FacebookEntry extends ActiveRecord
     {
         return '{{%facebookconnector_facebook_entry}}';
     }
-
 }

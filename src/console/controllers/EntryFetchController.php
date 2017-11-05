@@ -22,19 +22,20 @@ class EntryFetchController extends Controller
     {
         $count = 0;
         $loadUntil = $date ?: time();
+        echo 'Loading data from facebook' . PHP_EOL;
         $entries = FacebookConnector::$plugin->entryFetcher->fetchAll($loadUntil);
         foreach ($entries as $entry) {
             $count++;
             FacebookConnector::$plugin->entryPersist->persist($entry);
         }
-        echo 'Added ' . $count . ' new entries ' . PHP_EOL;
+        echo 'added ' . $count . ' new entries ' . PHP_EOL;
         return 0;
     }
 
-    public function actionProvideAttachments()
+    public function actionFetchDetail()
     {
-        $count = FacebookConnector::$plugin->entryPersist->provideAttachments();
-        echo 'get attachments for ' . $count . ' entries' . PHP_EOL;
+        echo 'Loading data from facebook' . PHP_EOL;
+        $count = FacebookConnector::$plugin->entryPersist->loadEntryDetail();
+        echo 'loaded details for ' . $count . ' entries' . PHP_EOL;
     }
-
 }

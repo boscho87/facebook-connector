@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v0.18.0 - 2017-11-05
+### Added
    - Entries can now be Loaded from Facebook
-   - Added a craft variable to get the entries from the database 
-
+   - Added a craft variable to get the entries from the database
+   - Entries now "fechtable" with quries (like standard craft contents)
+    
 
 ## v0.17.0 - 2017-11-02
    - Started with Implementation of "fetch Facebook Feed" 
