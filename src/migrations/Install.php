@@ -98,7 +98,7 @@ class Install extends Migration
                     'dateCreated' => $this->dateTime()->notNull(),
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'created' => $this->string(255)->notNull(),
-                    'attachment' => $this->text(),
+                    'has_detail' => $this->boolean(),
                     'type' => $this->string(),
                     'image_src' => $this->string(510),
                     'image_height' => $this->string(),

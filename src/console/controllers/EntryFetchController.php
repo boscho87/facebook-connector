@@ -25,8 +25,10 @@ class EntryFetchController extends Controller
         echo 'Loading data from facebook' . PHP_EOL;
         $entries = FacebookConnector::$plugin->entryFetcher->fetchAll($loadUntil);
         foreach ($entries as $entry) {
-            $count++;
-            FacebookConnector::$plugin->entryPersist->persist($entry);
+            $saved = FacebookConnector::$plugin->entryPersist->persist($entry);
+            if ($saved) {
+                $count++;
+            }
         }
         echo 'added ' . $count . ' new entries ' . PHP_EOL;
         return 0;

@@ -32,8 +32,11 @@ class EntryPersist extends Component
             $fbEntry->fbId = $entry->id;
             $fbEntry->content = $entry->message ?? '';
             $fbEntry->created = strtotime($entry->created_time);
+            $fbEntry->has_detail = false;
             $fbEntry->save();
+            return true;
         }
+        return false;
     }
 
     /**
@@ -43,13 +46,13 @@ class EntryPersist extends Component
     {
         $count = 0;
         $parser = new EntryParser();
-        $entries = FacebookEntry::findAll(['attachment' => null]);
+        $entries = FacebookEntry::findAll(['has_detail' => false]);
         foreach ($entries as $entry) {
             $count++;
             $attachment = FacebookConnector::$plugin->entryFetcher->getEntryAttachments($entry->fbId);
             $entry->title = $entry->title ?? $attachment->title ?? '';
             $entry = $parser->parseEntry($entry, $attachment);
-            $entry->attachment = 'loaded';
+            $entry->has_detail = true;
             $entry->update();
         }
         return $count;
