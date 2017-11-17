@@ -1,5 +1,5 @@
 # FacebookConnector plugin for Craft CMS 3.x
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e5bad32b62e145c29188de7645170778)](https://www.codacy.com/app/boscho87/facebook-connector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=boscho87/facebook-connector&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7f189dbcb6645f6bef11d3ad00b617f)](https://www.codacy.com/app/boscho87/facebook-connector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=boscho87/facebook-connector&amp;utm_campaign=Badge_Grade)
 
 Connect your Website with a Facebook Page
 
