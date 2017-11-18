@@ -40,7 +40,7 @@ use craft\elements\Entry;
 
 return function (Entry $entry) {
    
-    //you can to some fancy stuff with callables 👍 !
+    //you can do some fancy stuff with callables 👍 !
     $description = function() use ($entry){
       return $entry->teaserSubTitle;  
     };
