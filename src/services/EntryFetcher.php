@@ -44,6 +44,10 @@ class EntryFetcher extends Component
      * @var Facebook
      */
     private $facebook;
+    /**
+     * @var array
+     */
+    private $eventFields = ['start_time', 'end_time', 'cover', 'interested_count'];
 
     /**
      * this function is invoked by craft (use it like a constuctor)
@@ -86,6 +90,18 @@ class EntryFetcher extends Component
         } catch (\Exception $exception) {
             return '';
         }
+    }
+
+    /**
+     * @param string $eventId
+     * @return mixed
+     */
+    public function getEventDetails(string $eventId)
+    {
+        $response = $this->facebook->get(
+            '/' . $eventId . '?fields=' . implode(',', $this->eventFields), $this->token
+        );
+        return json_decode($response->getBody());
     }
 
     /**
