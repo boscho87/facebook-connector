@@ -99,7 +99,8 @@ class EntryFetcher extends Component
     public function getEventDetails(string $eventId)
     {
         $response = $this->facebook->get(
-            '/' . $eventId . '?fields=' . implode(',', $this->eventFields), $this->token
+            '/' . $eventId . '?fields=' . implode(',', $this->eventFields),
+            $this->token
         );
         return json_decode($response->getBody());
     }
