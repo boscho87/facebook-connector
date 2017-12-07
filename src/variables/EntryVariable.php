@@ -18,4 +18,9 @@ class EntryVariable
     {
         return FacebookConnector::$plugin->entryPersist->getEntries();
     }
+
+    public function decode($data)
+    {
+        return json_decode($data);
+    }
 }

@@ -30,7 +30,7 @@ class EntryPersist extends Component
         if (!FacebookEntry::findOne(['fbId' => $entry->id])) {
             $fbEntry = new FacebookEntry();
             $fbEntry->fbId = $entry->id;
-            $fbEntry->content = $entry->message ?? '';
+            $fbEntry->content = isset($entry->message) ? json_encode($entry->message) : '';
             $fbEntry->created = strtotime($entry->created_time);
             $fbEntry->has_detail = false;
             $fbEntry->save();
@@ -45,13 +45,24 @@ class EntryPersist extends Component
     public function loadEntryDetail()
     {
         $count = 0;
-        $parser = new EntryParser();
+        $entryParser = new EntryParser();
         $entries = FacebookEntry::findAll(['has_detail' => false]);
         foreach ($entries as $entry) {
             $count++;
             $attachment = FacebookConnector::$plugin->entryFetcher->getEntryAttachments($entry->fbId);
             $entry->title = $entry->title ?? $attachment->title ?? '';
-            $entry = $parser->parseEntry($entry, $attachment);
+            $entry = $entryParser->parseEntry($entry, $attachment);
+            //Todo this have to be after entry parse, because type is set after
+            if ($entry->type == 'event') {
+                //Todo extract this
+                $eventId = preg_replace('/\d+_{1}/', '', $entry->fbId);
+                $event = FacebookConnector::$plugin->entryFetcher->getEventDetails($eventId);
+                $entry->event_cover_offset_y = $event->cover->offset_y;
+                $entry->event_cover_offset_x = $event->cover->offset_x;
+                $entry->event_cover_source = $event->cover->source;
+                $entry->start_time = strtotime($event->start_time);
+                $entry->end_time = strtotime($event->end_time);
+            }
             $entry->has_detail = true;
             $entry->update();
         }

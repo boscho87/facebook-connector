@@ -55,7 +55,7 @@ return function (Entry $entry) {
         //link to the entry page {default:$entry->getUrl()}
         'link' => $entry->getUrl(),
         //field to get the img url from {default:''} --> no image
-        'picture' => (count($entry->fb_image) > 0) ? FacebookConnector::getBaseUrl() . $entry->fb_image->first()->getUrl() : '',
+        'picture' => (count($entry->fb_image) > 0) ? Craft::$app->request->getHostInfo() . $entry->fb_image->first()->getUrl() : '',
         //field to get the caption from {default:''}
         'caption' => $entry->getAuthor()->getName(),
         //field to get the description from {default:''}
@@ -93,7 +93,13 @@ be aware, that the entries are incomplete, if the details are missing! (you can 
     'uid' => $this->uid(), // like every craft entry
     'title' => $this->string(510), // should be clear
     'video' => $this->string(510), // [its a link] only set if its a video 'type' (atm. works only wiht youtube
-    'content' => $this->text() // text body 
+    'content' => $this->text() // text body
+    //event stuff (only when type  = event) 
+    'start_time' => $this->string(45),
+    'end_time' => $this->string(45),
+    'event_cover_source' => $this->string(255),
+    'event_cover_offset_x' => $this->string(45),
+    'event_cover_offset_y' => $this->string(45),
   ]
 ```
 
@@ -121,7 +127,8 @@ be aware, that the entries are incomplete, if the details are missing! (you can 
                         {% else %}
                             Facebook
                         {% endif %}
-                        am {{ fbEntry.created|date('d.m.y') }} um {{ fbEntry.created|date('H:i') }}
+                        {# decode the content, because it was encoded with json to stroe to more types of db's #}
+                        am {{ fbEntry.created|date('d.m.y') }} um {{ {{ craft.facebook.decode(fbEntry.content) }} }}
                     </p>
                 </div>
                 <div style="float: left;width: 30%">

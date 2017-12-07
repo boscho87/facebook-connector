@@ -84,7 +84,7 @@ class EntryParser
     {
         $sites = \Craft::$app->getSites();
         foreach ($sites as $site) {
-            $host = parse_url($site->baseUrl)['host'] ?? '';
+            $host = parse_url(urldecode($site->baseUrl))['host'] ?? '';
             if (strpos($url, $host)) {
                 return true;
             }
