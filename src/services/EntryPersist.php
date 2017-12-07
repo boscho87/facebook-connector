@@ -31,7 +31,6 @@ class EntryPersist extends Component
             $fbEntry = new FacebookEntry();
             $fbEntry->fbId = $entry->id;
             $fbEntry->content = isset($entry->message) ? json_encode($entry->message) : '';
-            var_dump($fbEntry->content);
             $fbEntry->created = strtotime($entry->created_time);
             $fbEntry->has_detail = false;
             $fbEntry->save();
