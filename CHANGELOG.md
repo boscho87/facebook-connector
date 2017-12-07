@@ -8,9 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## v1.1.0-rc.1 - 2017-12-07
 ### Added
-    - Event Deatail Data now also available 
+   - Event Deatail Data now also available 
 ### Updated
-    - Updated Readme.md    
+   - Updated Readme.md    
 
 ## v1.0.0-rc.1
 ## Added
