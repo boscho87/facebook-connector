@@ -56,14 +56,19 @@ class EntryPersist extends Component
             if ($entry->type == 'event') {
                 //Todo extract this
                 $eventId = preg_replace('/\d+_{1}/', '', $entry->fbId);
-                $event = FacebookConnector::$plugin->entryFetcher->getEventDetails($eventId);
-                $entry->event_cover_offset_y = $event->cover->offset_y;
-                $entry->event_cover_offset_x = $event->cover->offset_x;
-                $entry->event_cover_source = $event->cover->source;
-                $entry->start_time = strtotime($event->start_time);
-                $entry->end_time = strtotime($event->end_time);
+                $entry->has_detail = true;
+                try {
+                    $event = FacebookConnector::$plugin->entryFetcher->getEventDetails($eventId);
+                    $entry->event_cover_offset_y = $event->cover->offset_y;
+                    $entry->event_cover_offset_x = $event->cover->offset_x;
+                    $entry->event_cover_source = $event->cover->source;
+                    $entry->start_time = strtotime($event->start_time);
+                    $entry->end_time = strtotime($event->end_time);
+                } catch (\Exception $e) {
+                    $entry->type = 'event_share';
+                    echo 'event with id: ' . $eventId . ' could not be loaded (maybe its a shared object)';
+                }
             }
-            $entry->has_detail = true;
             $entry->update();
         }
         return $count;
