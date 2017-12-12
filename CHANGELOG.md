@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 
 ####  Released
+## v1.2.0 - 2017-12-12
+### Changed, going to the first Stable Major Vesion
+ 
  
 ## v1.1.0-rc.2 - 2017-12-09
 ### Fixed
