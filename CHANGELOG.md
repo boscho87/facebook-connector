@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 #### Unreleased
 
 ####  Released
-## v1.2.2 - 2017-12-22
+## v1.2.3 - 2017-12-22
 ### Changed, going to the first Stable Major Vesion
 
 ## v1.2.0 - 2017-12-12
