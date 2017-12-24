@@ -29,4 +29,7 @@
             </group>
         </exclude>
     </groups>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
 </phpunit>
