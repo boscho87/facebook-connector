@@ -1,57 +1,60 @@
 {
-    "name": "itscoding/facebook-connector",
-    "description": "Connect a Website to an Facebook Page",
-    "type": "craft-plugin",
-    "version": "1.2.3",
-    "keywords": [
-        "craft",
-        "cms",
-        "craftcms",
-        "craft-plugin",
-        "facebookconnector"
-    ],
-    "support": {
-        "docs": "https://github.com/boscho87/facebook-connector/blob/master/README.md",
-        "issues": "https://github.com/boscho87/facebook-connector"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Simon Müller itsCoding",
-            "homepage": "https://www.itscoding.ch"
-        }
-    ],
-    "require": {
-        "craftcms/cms": "^3.0.0-beta.23",
-        "facebook/graph-sdk": "^5.6"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-          "itscoding\\facebookconnector\\": "src/"
-        }
-    },
-    "extra": {
-        "name": "FacebookConnector",
-        "handle": "facebook-connector",
-        "schemaVersion": "1.2.0",
-        "hasCpSettings": true,
-        "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/master/CHANGELOG.md",
-        "components": {
-            "entryPoster": "itscoding\\facebookconnector\\services\\EntryPoster",
-            "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher",
-            "eventPersist": "itscoding\\facebookconnector\\services\\EventPersist",
-            "TokenLoader": "itscoding\\facebookconnector\\services\\TokenLoader"
-        },
-        "class": "itscoding\\facebookconnector\\FacebookConnector"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "^3.1"
+  "name": "itscoding/facebook-connector",
+  "description": "Connect a Website to an Facebook Page",
+  "type": "craft-plugin",
+  "version": "1.2.3",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "craft-plugin",
+    "facebookconnector"
+  ],
+  "support": {
+    "docs": "https://github.com/boscho87/facebook-connector/blob/master/README.md",
+    "issues": "https://github.com/boscho87/facebook-connector"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Simon Müller itsCoding",
+      "homepage": "https://www.itscoding.ch"
     }
+  ],
+  "require": {
+    "roave/security-advisories": "dev-master",
+    "craftcms/cms": "^3.0.0-beta.23",
+    "facebook/graph-sdk": "^5.6",
+    "phpunit/phpunit": "^6.5"
+  },
+  "require-dev": {
+    "codacy/coverage": "dev-master",
+    "squizlabs/php_codesniffer": "^3.1"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "itscoding\\facebookconnector\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "FacebookConnector",
+    "handle": "facebook-connector",
+    "schemaVersion": "1.2.0",
+    "hasCpSettings": true,
+    "hasCpSection": false,
+    "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/master/CHANGELOG.md",
+    "components": {
+      "entryPoster": "itscoding\\facebookconnector\\services\\EntryPoster",
+      "eventFetcher": "itscoding\\facebookconnector\\services\\EventFetcher",
+      "eventPersist": "itscoding\\facebookconnector\\services\\EventPersist",
+      "TokenLoader": "itscoding\\facebookconnector\\services\\TokenLoader"
+    },
+    "class": "itscoding\\facebookconnector\\FacebookConnector"
+  }
 }
