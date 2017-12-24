@@ -9,7 +9,6 @@ php:
 
 # In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
 before_script:
-  - sudo apt-get install php-curl
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install -n
 
