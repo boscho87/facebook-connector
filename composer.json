@@ -42,6 +42,11 @@
       "itscoding\\facebookconnector\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "FBConnectorTest\\": "tests/"
+    }
+  },
   "extra": {
     "name": "FacebookConnector",
     "handle": "facebook-connector",
