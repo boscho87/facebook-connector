@@ -1,0 +1,17 @@
+# .travis.yml
+language: php
+
+# Do not forget to provide your CODACY_PROJECT_TOKEN as described in https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
+
+php:
+  - 7.1
+
+# In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install -n
+
+script:
+  - php vendor/bin/phpunit --coverage-clover build/coverage/xml
+  - php vendor/bin/codacycoverage clover build/coverage/xml
+
