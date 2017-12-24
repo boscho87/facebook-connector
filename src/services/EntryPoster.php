@@ -33,7 +33,7 @@ class EntryPoster extends Component
      * @param Entry $entry
      * @return array
      */
-    private function getPostData(Entry $entry)
+    public function getPostData(Entry $entry)
     {
         try {
             $config = include \Craft::$app->vendorPath . '/../' . 'fieldconfig.php';
@@ -42,11 +42,13 @@ class EntryPoster extends Component
                 return [];
             };
         }
+
+        //Todo get Exception when calling getFieldValue on a Property that does not exits
         $default = [
-            'post_on_facebook' => $entry->post_on_facebook ?? true,
+            'post_on_facebook' => $entry->getFieldValue('post_on_facebook') ?? true,
             'link' => $entry->getUrl(),
             'entry_id' => $entry->id,
-            'message' => $entry->subTitle ?? '',
+            'message' => $entry->getFieldValue('message') ?? '',
             'picture' => '',
             'caption' => '',
             'description' => ''

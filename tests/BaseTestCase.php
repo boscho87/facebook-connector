@@ -9,14 +9,16 @@
 namespace itscoding\facebookconnectortest;
 
 
+use itscoding\facebookconnector\FacebookConnector;
 use PHPUnit\Framework\TestCase;
+use yii\base\Module;
 
-class ExampleTest extends TestCase
+class BaseTestCase extends TestCase
 {
 
-    public function test()
+    public function setUp()
     {
-        $this->assertEquals(1, 1);
     }
+
 
 }
