@@ -6,7 +6,7 @@
  * Time: 11:51
  */
 
-namespace FBConnectorTest;
+namespace itscoding\facebookconnectortest;
 
 
 use PHPUnit\Framework\TestCase;
