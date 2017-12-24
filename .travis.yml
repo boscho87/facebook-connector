@@ -5,7 +5,6 @@ language: php
 
 php:
   - 7.1
-  - 7.2
 
 # In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
 before_script:
@@ -14,6 +13,5 @@ before_script:
 
 script:
   - php vendor/bin/phpunit --coverage-clover build/coverage/xml
-
-after_script:
   - php vendor/bin/codacycoverage clover build/coverage/xml
+
