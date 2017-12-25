@@ -12,11 +12,6 @@ use Facebook\Authentication\AccessToken;
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 
-/**
- * Class AbstractPostHandler
- * @package itscoding\facebookconnector\services\post
- * @codeCoverageIgnore
- */
 abstract class AbstractPostHandler
 {
 
@@ -27,6 +22,7 @@ abstract class AbstractPostHandler
 
     /**
      * AbstractPostHandler constructor.
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
@@ -89,6 +85,7 @@ abstract class AbstractPostHandler
 
     /**
      * @param int $entryId
+     * @codeCoverageIgnore
      */
     protected function removePostReference(string $facebookId)
     {
