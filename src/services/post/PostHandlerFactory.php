@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\services\post;
 
-
 class PostHandlerFactory
 {
 
@@ -28,7 +27,6 @@ class PostHandlerFactory
      */
     public function __construct(PostCreator $postCreator = null, PostUpdater $postUpdater = null)
     {
-
         $this->postCreator = $postCreator ?? new PostCreator();
         $this->postUpdater = $postUpdater ?? new PostUpdater();
     }
@@ -48,6 +46,4 @@ class PostHandlerFactory
     {
         return $this->postUpdater;
     }
-
-
 }

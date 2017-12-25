@@ -8,7 +8,6 @@
 
 namespace itscoding\facebookconnector\services;
 
-
 use craft\base\Component;
 
 class ConfigFileLoader extends Component
@@ -54,5 +53,4 @@ class ConfigFileLoader extends Component
     {
         $this->configFile = $configFile;
     }
-
 }
