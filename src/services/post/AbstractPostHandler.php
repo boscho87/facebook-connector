@@ -12,6 +12,11 @@ use Facebook\Authentication\AccessToken;
 use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 
+/**
+ * Class AbstractPostHandler
+ * @package itscoding\facebookconnector\services\post
+ * @codeCoverageIgnore
+ */
 abstract class AbstractPostHandler
 {
 

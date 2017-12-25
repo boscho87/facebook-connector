@@ -42,6 +42,7 @@ class EntryPoster extends Component
 
     /**
      * initialize function by CraftCMS
+     * @codeCoverageIgnore
      */
     public function init()
     {
@@ -90,6 +91,7 @@ class EntryPoster extends Component
      * called from the event-listener
      * FacebookConnector::$plugin->entryPoster->post()
      * @param Entry $entryType
+     * @codeCoverageIgnore
      */
     public function post(Entry $entry)
     {
