@@ -27,7 +27,7 @@ class ConfigFileLoader extends Component
         try {
             $this->configFile = \Craft::$app->vendorPath . '/../fieldconfig.php';
         } catch (\Exception $e) {
-            $this->configFile = '';
+            $this->configFile;
         }
     }
 
@@ -50,7 +50,7 @@ class ConfigFileLoader extends Component
     /**
      * @param string $configFile
      */
-    public function setConfigFile(string $configFile): void
+    public function setConfigFile(?string $configFile): void
     {
         $this->configFile = $configFile;
     }

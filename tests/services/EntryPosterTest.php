@@ -19,7 +19,7 @@ class EntryPosterTest extends BaseTestCase
 {
 
     private $mockUrl = 'http://itscoding.ch';
-    private $mockId = 1;
+    private $mockId = 656;
     private $mockMessage = 'hello mock';
 
     /**
@@ -72,9 +72,21 @@ class EntryPosterTest extends BaseTestCase
         $postData = $this->entryPoster->getPostData($this->createMockEntry());
         $this->assertEquals('Simon Müller', $postData['caption']);
         $this->assertEquals($this->mockUrl, $postData['link']);
-        $this->assertEquals(888, $postData['entry_id']);
+        $this->assertEquals(656, $postData['entry_id']);
         $this->assertEquals('mockMe', $postData['message']);
         $this->assertTrue($postData['post_on_facebook']);
+    }
+
+    /**
+     *
+     */
+    public function testWithoutFile()
+    {
+        $fileLoader = new ConfigFileLoader();
+        $fileLoader->setConfigFile(null);
+        $this->entryPoster->setConfigFileLoader($fileLoader);
+        $postData = $this->entryPoster->getPostData($this->createMockEntry());
+        $this->assertEquals(656, $postData['entry_id']);
     }
 
 
