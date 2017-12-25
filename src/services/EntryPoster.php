@@ -14,10 +14,8 @@ use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
-use itscoding\facebookconnector\services\post\PostCreator;
 use itscoding\facebookconnector\services\post\AbstractPostHandler;
 use itscoding\facebookconnector\services\post\PostHandlerFactory;
-use itscoding\facebookconnector\services\post\PostUpdater;
 
 /**
  * EntryPoster Service

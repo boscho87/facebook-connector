@@ -28,6 +28,7 @@ class OAuth extends Widget
     /**
      * Todo remove this
      * @var string The message to display
+     * @codeCoverageIgnore
      */
     public $message = 'Hello, world.';
 
@@ -35,6 +36,7 @@ class OAuth extends Widget
     /**
      * Returns the display name of this class.
      * @return string The display name of this class.
+     * @codeCoverageIgnore
      */
     public static function displayName(): string
     {
@@ -44,6 +46,7 @@ class OAuth extends Widget
     /**
      * Returns the path to the widget’s SVG icon.
      * @return string|null The path to the widget’s SVG icon
+     * @codeCoverageIgnore
      */
     public static function iconPath()
     {

@@ -19,6 +19,7 @@
  * @author    Simon Müller itsCoding
  * @package   FacebookConnector
  * @since     0.1.0
+ * @codeCoverageIgnore
  */
 return [
     'Settings' => 'Einstellungen',
