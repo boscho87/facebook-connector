@@ -16,6 +16,7 @@ use craft\base\Component;
 use craft\elements\Entry;
 use itscoding\facebookconnector\services\post\PostCreator;
 use itscoding\facebookconnector\services\post\AbstractPostHandler;
+use itscoding\facebookconnector\services\post\PostHandlerFactory;
 use itscoding\facebookconnector\services\post\PostUpdater;
 
 /**
@@ -33,11 +34,20 @@ class EntryPoster extends Component
      */
     private $configFileLoader;
 
+    /**
+     * @var PostHandlerFactory
+     */
+    private $postHandlerFactory;
 
+
+    /**
+     * initialize function by CraftCMS
+     */
     public function init()
     {
         if (FacebookConnector::$plugin) {
             $this->configFileLoader = FacebookConnector::$plugin->configFileLoader;
+            $this->postHandlerFactory = new PostHandlerFactory();
         }
     }
 
@@ -47,6 +57,14 @@ class EntryPoster extends Component
     public function setConfigFileLoader(ConfigFileLoader $configFileLoader): void
     {
         $this->configFileLoader = $configFileLoader;
+    }
+
+    /**
+     * @param PostHandlerFactory $postHandlerFactory
+     */
+    public function setPostHandlerFactory(PostHandlerFactory $postHandlerFactory): void
+    {
+        $this->postHandlerFactory = $postHandlerFactory;
     }
 
     /**
@@ -79,7 +97,7 @@ class EntryPoster extends Component
         if (!$token) {
             return $this->handleInvalidToken($token);
         }
-        $postData = $this->getPostData($entry, $this->defaultConfigFile);
+        $postData = $this->getPostData($entry);
         if ($postData['post_on_facebook']) {
             $postHandler = $this->loadPostHandler($entry->getId());
             return $postHandler->post($postData, $token, $entry->getId());
@@ -91,19 +109,19 @@ class EntryPoster extends Component
      * @param string $entryId
      * @return AbstractPostHandler
      */
-    private function loadPostHandler(string $entryId): AbstractPostHandler
+    public function loadPostHandler(string $entryId, bool $forceUpdater = false): AbstractPostHandler
     {
-        if ((bool)PostMemorize::findOne(['entryId' => $entryId])) {
-            return new PostUpdater();
+        if ((FacebookConnector::$plugin && (bool)PostMemorize::findOne(['entryId' => $entryId])) || $forceUpdater) {
+            return $this->postHandlerFactory->getPostUpdater();
         }
-        return new PostCreator();
+        return $this->postHandlerFactory->getPostCreator();
     }
 
     /**
      * @param $token
      * @return bool
      */
-    private function handleInvalidToken($token)
+    public function handleInvalidToken($token)
     {
         //Todo do not post and send a message to the user what he clould to to fix this
         //maybe set a flash message

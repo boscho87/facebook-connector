@@ -12,6 +12,9 @@ namespace itscoding\facebookconnectortest\service;
 use craft\elements\Entry;
 use itscoding\facebookconnector\services\ConfigFileLoader;
 use itscoding\facebookconnector\services\EntryPoster;
+use itscoding\facebookconnector\services\post\PostCreator;
+use itscoding\facebookconnector\services\post\PostHandlerFactory;
+use itscoding\facebookconnector\services\post\PostUpdater;
 use itscoding\facebookconnectortest\BaseTestCase;
 
 
@@ -102,6 +105,27 @@ class EntryPosterTest extends BaseTestCase
             ->will($this->onConsecutiveCalls(false, $this->mockMessage));
         $entryMock->id = $this->mockId;
         return $entryMock;
+    }
+
+    /**
+     * @group unit
+     */
+    public function testLoadPostHandler()
+    {
+        $this->entryPoster->setPostHandlerFactory(new PostHandlerFactory());
+        $postHandler = $this->entryPoster->loadPostHandler(3);
+        $this->assertInstanceOf(PostCreator::class, $postHandler);
+        $postHandler = $this->entryPoster->loadPostHandler(1, true);
+        $this->assertInstanceOf(PostUpdater::class, $postHandler);
+    }
+
+    /**
+     * @group unit
+     */
+    public function testInvalidToken()
+    {
+        $data = $this->entryPoster->handleInvalidToken('');
+        $this->assertFalse($data);
     }
 
 

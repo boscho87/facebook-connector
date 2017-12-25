@@ -25,7 +25,9 @@ abstract class AbstractPostHandler
      */
     public function __construct()
     {
-        $this->facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+        if (FacebookConnector::$plugin) {
+            $this->facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+        }
     }
 
     /**
