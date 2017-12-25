@@ -50,7 +50,7 @@ class EntryFetcher extends Component
     private $eventFields = ['start_time', 'end_time', 'cover', 'interested_count'];
 
     /**
-     * this function is invoked by craft (use it like a constuctor)
+     * @codeCoverageIgnore
      */
     public function init()
     {
@@ -64,6 +64,8 @@ class EntryFetcher extends Component
      * @param int|null $latestDate if this is set,
      * next page only loads when it has newer entries than this date
      * @return array
+     * @codeCoverageIgnore
+     *
      */
     public function fetchAll(int $latestDate = 0)
     {
@@ -81,6 +83,7 @@ class EntryFetcher extends Component
     /**
      * @param string $entryId
      * @return string
+     * @codeCoverageIgnore
      */
     public function getEntryAttachments(string $entryId)
     {
@@ -95,6 +98,7 @@ class EntryFetcher extends Component
     /**
      * @param string $eventId
      * @return mixed
+     * @codeCoverageIgnore
      */
     public function getEventDetails(string $eventId)
     {
@@ -109,6 +113,7 @@ class EntryFetcher extends Component
      * @param $entries
      * @param $limit
      * @return array
+     * @codeCoverageIgnore
      */
     private function getPageEntries(): array
     {
@@ -127,6 +132,7 @@ class EntryFetcher extends Component
      * @param $entries
      * @param $latestDate
      * @return bool
+     * @codeCoverageIgnore
      */
     private function checkIfDateInRange($entries, $latestDate)
     {
@@ -136,6 +142,7 @@ class EntryFetcher extends Component
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     private function getApiUrl()
     {

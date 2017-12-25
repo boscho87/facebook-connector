@@ -23,6 +23,7 @@ class EntryParser
      * @param $parsed
      * @param $key
      * @return mixed
+     * @codeCoverageIgnore
      */
     public function parseEntry($entry, $attachment)
     {
@@ -46,6 +47,7 @@ class EntryParser
      * checks if the entry only is a link, if this is the case,
      * set the type
      * @param $entry
+     * @codeCoverageIgnore
      */
     private function checkIfIsLink($entry)
     {
@@ -63,6 +65,7 @@ class EntryParser
     /**
      * @param $url
      * @return bool
+     * @codeCoverageIgnore
      */
     private function ifYoutubeLink($url)
     {
@@ -79,6 +82,7 @@ class EntryParser
      * in it (the sites are stored in the DBTable sections_sites
      * @param $url
      * @return bool
+     * @codeCoverageIgnore
      */
     private function isInternalLink($url)
     {

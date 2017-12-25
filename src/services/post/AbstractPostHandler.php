@@ -22,7 +22,6 @@ abstract class AbstractPostHandler
 
     /**
      * AbstractPostHandler constructor.
-     * @codeCoverageIgnore
      */
     public function __construct()
     {
@@ -45,6 +44,7 @@ abstract class AbstractPostHandler
      * @param AccessToken $token
      * @param int $entryId
      * @return bool
+     * @codeCoverageIgnore
      */
     public function post(array $postData, AccessToken $token, int $entryId)
     {

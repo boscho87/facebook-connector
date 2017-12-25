@@ -46,7 +46,7 @@ class TokenLoader extends Component
     private $apiVersion = '';
 
     /**
-     * this function is invoked by craft (use it like a constuctor)
+     * @codeCoverageIgnore
      */
     public function init()
     {
@@ -65,6 +65,7 @@ class TokenLoader extends Component
     /**
      * FacebookConnector::$plugin->tokenLoader->getFacebookInstance()
      * @return Facebook
+     * @codeCoverageIgnore
      */
     public function getFacebookInstance()
     {
@@ -82,6 +83,7 @@ class TokenLoader extends Component
     /**
      * generate the url to redirect after the facebook authorization
      * @return string
+     * @codeCoverageIgnore
      */
     public function getLoginUrl()
     {
@@ -98,6 +100,7 @@ class TokenLoader extends Component
      * this method is called
      * when facebook redirects back to the page
      * @return bool
+     * @codeCoverageIgnore
      */
     public function handleCallback()
     {
@@ -119,8 +122,9 @@ class TokenLoader extends Component
     }
 
     /**
-     * @return FBAccessToken|null
      * get a valid user access token
+     * @return FBAccessToken|null
+     * @codeCoverageIgnore
      */
     public function loadValidToken()
     {
@@ -130,6 +134,7 @@ class TokenLoader extends Component
     /**
      * load a valid token from the database
      * @return FBAccessToken|null
+     * @codeCoverageIgnore
      */
     private function loadTokenFromDb()
     {
@@ -148,6 +153,7 @@ class TokenLoader extends Component
     /**
      * store a token into the database
      * @param FBAccessToken $token
+     * @codeCoverageIgnore
      */
     private function storeToken(FBAccessToken $token)
     {
@@ -161,6 +167,7 @@ class TokenLoader extends Component
      * get a access_token
      * @param FacebookRedirectLoginHelper $helper
      * @return mixed AccessToken|false
+     * @codeCoverageIgnore
      */
     private function getShortLivingAccessToken(FacebookRedirectLoginHelper $helper)
     {
@@ -193,6 +200,7 @@ class TokenLoader extends Component
      * @param $accessToken
      * @param $config
      * @return mixed
+     * @codeCoverageIgnore
      */
     private function validateToken(Facebook $facebook, FBAccessToken $accessToken)
     {
@@ -210,6 +218,7 @@ class TokenLoader extends Component
      * @param $accessToken
      * @param $oAuth2Client
      * @return mixed
+     * @codeCoverageIgnore
      */
     private function exchangeShortLivingToken(FBAccessToken $accessToken, OAuth2Client $oAuth2Client)
     {
@@ -227,6 +236,7 @@ class TokenLoader extends Component
      * exchange the user token with the a page token to post as a page
      * @param FBAccessToken $accessToken
      * @return \Facebook\FacebookResponse
+     * @codeCoverageIgnore
      */
     public function exchangePageToken(FBAccessToken $accessToken)
     {
@@ -237,6 +247,7 @@ class TokenLoader extends Component
 
     /**
      * @return array
+     * @codeCoverageIgnore
      */
     public function getErrorMessages(): array
     {
@@ -245,6 +256,7 @@ class TokenLoader extends Component
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isCliMode()
     {

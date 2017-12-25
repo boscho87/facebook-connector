@@ -22,6 +22,7 @@ class PostUpdater extends AbstractPostHandler
     /**
      * @param int $entryId
      * @return string
+     * @codeCoverageIgnore
      */
     private function entryChanged(int $entryId, string $checkSum)
     {
@@ -35,6 +36,7 @@ class PostUpdater extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     protected function savePostReference(string $checkSum, int $entryId, $facebookId): bool
     {
@@ -47,6 +49,7 @@ class PostUpdater extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function submitPost($postData, $token, $entryId)
     {
@@ -61,6 +64,7 @@ class PostUpdater extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     protected function sendRequest(string $postId, array $postData, string $token)
     {
