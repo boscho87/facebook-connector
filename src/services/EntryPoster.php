@@ -28,6 +28,26 @@ use itscoding\facebookconnector\services\post\PostUpdater;
 class EntryPoster extends Component
 {
 
+    /**
+     * @var ConfigFileLoader
+     */
+    private $configFileLoader;
+
+
+    public function init()
+    {
+        if (FacebookConnector::$plugin) {
+            $this->configFileLoader = FacebookConnector::$plugin->configFileLoader;
+        }
+    }
+
+    /**
+     * @param ConfigFileLoader $configFileLoader
+     */
+    public function setConfigFileLoader(ConfigFileLoader $configFileLoader): void
+    {
+        $this->configFileLoader = $configFileLoader;
+    }
 
     /**
      * @param Entry $entry
@@ -35,15 +55,7 @@ class EntryPoster extends Component
      */
     public function getPostData(Entry $entry)
     {
-        try {
-            $config = include \Craft::$app->vendorPath . '/../' . 'fieldconfig.php';
-        } catch (\Exception $e) {
-            $config = function () {
-                return [];
-            };
-        }
-
-        //Todo get Exception when calling getFieldValue on a Property that does not exits
+        $config = $this->configFileLoader->getConfigFile();
         $default = [
             'post_on_facebook' => $entry->getFieldValue('post_on_facebook') ?? true,
             'link' => $entry->getUrl(),
@@ -67,7 +79,7 @@ class EntryPoster extends Component
         if (!$token) {
             return $this->handleInvalidToken($token);
         }
-        $postData = $this->getPostData($entry);
+        $postData = $this->getPostData($entry, $this->defaultConfigFile);
         if ($postData['post_on_facebook']) {
             $postHandler = $this->loadPostHandler($entry->getId());
             return $postHandler->post($postData, $token, $entry->getId());
@@ -75,7 +87,10 @@ class EntryPoster extends Component
         return true;
     }
 
-
+    /**
+     * @param string $entryId
+     * @return AbstractPostHandler
+     */
     private function loadPostHandler(string $entryId): AbstractPostHandler
     {
         if ((bool)PostMemorize::findOne(['entryId' => $entryId])) {
