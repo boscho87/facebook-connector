@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ####  Released
 
-## 1.2.4 - 2017-12-24
+## 1.2.4 - 2018-01-18
 ### Added
    - Added CI configuration to the Project
    - Dummy PHPUnit test 
