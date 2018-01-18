@@ -11,10 +11,12 @@
 namespace itscoding\facebookconnector;
 
 use craft\web\twig\variables\CraftVariable;
+use itscoding\facebookconnector\services\ConfigFileLoader;
 use itscoding\facebookconnector\services\EntryPersist as EntryPersistService;
 use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
 use itscoding\facebookconnector\services\EntryFetcher as EntryFetcherService;
 use itscoding\facebookconnector\services\TokenLoader as TokenLoaderService;
+use itscoding\facebookconnector\services\ConfigFileLoader as ConfigFileLoaderService;
 use itscoding\facebookconnector\services\EntryPoster;
 use itscoding\facebookconnector\services\EntryFetcher;
 use itscoding\facebookconnector\models\Settings;
@@ -67,7 +69,8 @@ class FacebookConnector extends Plugin
             'tokenLoader' => TokenLoaderService::class,
             'entryPoster' => EntryPosterService::class,
             'entryFetcher' => EntryFetcherService::class,
-            'entryPersist' => EntryPersistService::class
+            'entryPersist' => EntryPersistService::class,
+            'configFileLoader' => ConfigFileLoaderService::class
         ]);
 
         Event::on(
