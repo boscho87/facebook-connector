@@ -24,6 +24,7 @@ class EntryPersist extends Component
 
     /**
      * @param \stdClass $entry
+     * @codeCoverageIgnore
      */
     public function persist(\stdClass $entry)
     {
@@ -41,6 +42,7 @@ class EntryPersist extends Component
 
     /**
      * get the attachment and save it to the entry
+     * @codeCoverageIgnore
      */
     public function loadEntryDetail()
     {
@@ -76,6 +78,7 @@ class EntryPersist extends Component
 
     /**
      * @return array|mixed
+     * @codeCoverageIgnore
      */
     public function getEntries()
     {

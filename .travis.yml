@@ -10,8 +10,8 @@ php:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install -n
-
 script:
+  - ./csniff.sh
   - php vendor/bin/phpunit --coverage-clover build/coverage/xml
   - php vendor/bin/codacycoverage clover build/coverage/xml
 

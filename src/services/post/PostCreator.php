@@ -16,6 +16,7 @@ class PostCreator extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     public function savePostReference(string $checkSum, int $entryId, $facebookId): bool
     {
@@ -28,6 +29,7 @@ class PostCreator extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     protected function submitPost($postData, $token, $entryId)
     {
@@ -38,6 +40,7 @@ class PostCreator extends AbstractPostHandler
 
     /**
      * @inheritdoc
+     * @codeCoverageIgnore
      */
     protected function sendRequest(string $endPoint, array $postData, string $token)
     {

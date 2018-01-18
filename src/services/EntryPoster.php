@@ -14,9 +14,8 @@ use itscoding\facebookconnector\FacebookConnector;
 use itscoding\facebookconnector\records\PostMemorize;
 use craft\base\Component;
 use craft\elements\Entry;
-use itscoding\facebookconnector\services\post\PostCreator;
 use itscoding\facebookconnector\services\post\AbstractPostHandler;
-use itscoding\facebookconnector\services\post\PostUpdater;
+use itscoding\facebookconnector\services\post\PostHandlerFactory;
 
 /**
  * EntryPoster Service
@@ -28,25 +27,57 @@ use itscoding\facebookconnector\services\post\PostUpdater;
 class EntryPoster extends Component
 {
 
+    /**
+     * @var ConfigFileLoader
+     */
+    private $configFileLoader;
+
+    /**
+     * @var PostHandlerFactory
+     */
+    private $postHandlerFactory;
+
+
+    /**
+     * initialize function by CraftCMS
+     * @codeCoverageIgnore
+     */
+    public function init()
+    {
+        if (FacebookConnector::$plugin) {
+            $this->configFileLoader = FacebookConnector::$plugin->configFileLoader;
+            $this->postHandlerFactory = new PostHandlerFactory();
+        }
+    }
+
+    /**
+     * @param ConfigFileLoader $configFileLoader
+     */
+    public function setConfigFileLoader(ConfigFileLoader $configFileLoader): void
+    {
+        $this->configFileLoader = $configFileLoader;
+    }
+
+    /**
+     * @param PostHandlerFactory $postHandlerFactory
+     */
+    public function setPostHandlerFactory(PostHandlerFactory $postHandlerFactory): void
+    {
+        $this->postHandlerFactory = $postHandlerFactory;
+    }
 
     /**
      * @param Entry $entry
      * @return array
      */
-    private function getPostData(Entry $entry)
+    public function getPostData(Entry $entry)
     {
-        try {
-            $config = include \Craft::$app->vendorPath . '/../' . 'fieldconfig.php';
-        } catch (\Exception $e) {
-            $config = function () {
-                return [];
-            };
-        }
+        $config = $this->configFileLoader->getConfigFile();
         $default = [
-            'post_on_facebook' => $entry->post_on_facebook ?? true,
+            'post_on_facebook' => $entry->getFieldValue('post_on_facebook') ?? true,
             'link' => $entry->getUrl(),
             'entry_id' => $entry->id,
-            'message' => $entry->subTitle ?? '',
+            'message' => $entry->getFieldValue('message') ?? '',
             'picture' => '',
             'caption' => '',
             'description' => ''
@@ -58,6 +89,7 @@ class EntryPoster extends Component
      * called from the event-listener
      * FacebookConnector::$plugin->entryPoster->post()
      * @param Entry $entryType
+     * @codeCoverageIgnore
      */
     public function post(Entry $entry)
     {
@@ -73,20 +105,23 @@ class EntryPoster extends Component
         return true;
     }
 
-
-    private function loadPostHandler(string $entryId): AbstractPostHandler
+    /**
+     * @param string $entryId
+     * @return AbstractPostHandler
+     */
+    public function loadPostHandler(string $entryId, bool $forceUpdater = false): AbstractPostHandler
     {
-        if ((bool)PostMemorize::findOne(['entryId' => $entryId])) {
-            return new PostUpdater();
+        if ((FacebookConnector::$plugin && (bool)PostMemorize::findOne(['entryId' => $entryId])) || $forceUpdater) {
+            return $this->postHandlerFactory->getPostUpdater();
         }
-        return new PostCreator();
+        return $this->postHandlerFactory->getPostCreator();
     }
 
     /**
      * @param $token
      * @return bool
      */
-    private function handleInvalidToken($token)
+    public function handleInvalidToken($token)
     {
         //Todo do not post and send a message to the user what he clould to to fix this
         //maybe set a flash message

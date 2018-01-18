@@ -6,14 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Unreleased
 
-## 1.2.4 - 2017-12-24
+####  Released
+
+## 1.2.4 - 2018-01-18
 ### Added
    - Added CI configuration to the Project
    - Dummy PHPUnit test 
 ### Changed
    - removed v from the version numbers
+### Fixed
+   - Fixed an issue with the configLoader   
 
-####  Released
 
 ## 1.2.3 - 2017-12-22
 ### Changed
@@ -48,7 +51,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 0.17.0 - 2017-11-02
    - Started with Implementation of "fetch Facebook Feed" 
 
-____
 ## 0.16.0 - 2017-10-08
 ### Added
   - Contribute Text

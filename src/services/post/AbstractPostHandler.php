@@ -25,7 +25,9 @@ abstract class AbstractPostHandler
      */
     public function __construct()
     {
-        $this->facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+        if (FacebookConnector::$plugin) {
+            $this->facebook = FacebookConnector::$plugin->tokenLoader->getFacebookInstance();
+        }
     }
 
     /**
@@ -42,6 +44,7 @@ abstract class AbstractPostHandler
      * @param AccessToken $token
      * @param int $entryId
      * @return bool
+     * @codeCoverageIgnore
      */
     public function post(array $postData, AccessToken $token, int $entryId)
     {
@@ -82,6 +85,7 @@ abstract class AbstractPostHandler
 
     /**
      * @param int $entryId
+     * @codeCoverageIgnore
      */
     protected function removePostReference(string $facebookId)
     {

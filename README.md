@@ -53,7 +53,7 @@ return function (Entry $entry) {
         'post_on_facebook' => $entry->post_on_facebook,
         //official doc https://developers.facebook.com/docs/graph-api/reference/v2.10/post
         //craft field to get the message to post from {default:''}
-        'message' => $entry->subTitle,
+        'message' => $entry->message,
         //link to the entry page {default:$entry->getUrl()}
         'link' => $entry->getUrl(),
         //field to get the img url from {default:''} --> no image
