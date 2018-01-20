@@ -73,11 +73,18 @@ class EntryPoster extends Component
     public function getPostData(Entry $entry)
     {
         $config = $this->configFileLoader->getConfigFile();
+        try {
+            $postOnFacebook = $entry->getFieldValue('post_on_facebook');
+            $message = $entry->getFieldValue('message');
+        } catch (\Exception $e) {
+            $postOnFacebook = false;
+            $message = false;
+        }
         $default = [
-            'post_on_facebook' => $entry->getFieldValue('post_on_facebook') ?? true,
+            'post_on_facebook' => $postOnFacebook,
             'link' => $entry->getUrl(),
             'entry_id' => $entry->id,
-            'message' => $entry->getFieldValue('message') ?? '',
+            'message' => $message,
             'picture' => '',
             'caption' => '',
             'description' => ''
