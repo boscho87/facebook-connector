@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 #### Unreleased
 
 ####  Released
+## 1.2.6 - 2018-01-20
+### Fixed
+- Increased version number 
+
 ## 1.2.5 - 2018-01-20
 ### Fixed
 - Fixed a bug in EntryPoster that throws an exception when saving an entry
