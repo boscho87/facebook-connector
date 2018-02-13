@@ -2,7 +2,7 @@
 /**
  * FacebookConnector plugin for Craft CMS 3.x
  *
- * Connect a Website to an Facbook Page
+ * Connect a Website to an Facebook Page
  *
  * @link      https://www.itscoding.ch
  * @copyright Copyright (c) 2017 Simon Müller itsCoding
