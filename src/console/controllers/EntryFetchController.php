@@ -9,14 +9,19 @@
 namespace itscoding\facebookconnector\console\controllers;
 
 use itscoding\facebookconnector\FacebookConnector;
+use itscoding\facebookconnector\migrations\Install;
 use yii\console\Controller;
 
+/**
+ * Class EntryFetchController
+ * @package itscoding\facebookconnector\console\controllers
+ */
 class EntryFetchController extends Controller
 {
 
     /**
      * @return string
-     * php craft facebook-connector/entry-fetch/list
+     * Handle facebook-connector/fetch-list console command
      */
     public function actionFetchList(string $date = null)
     {
@@ -25,7 +30,7 @@ class EntryFetchController extends Controller
         echo 'Loading data from facebook' . PHP_EOL;
         $entries = FacebookConnector::$plugin->entryFetcher->fetchAll($loadUntil);
         foreach ($entries as $entry) {
-            $saved = FacebookConnector::$plugin->entryPersist->persist($entry);
+            $saved = FacebookConnector::$plugin->entryPersist->persistEntry($entry);
             if ($saved) {
                 $count++;
             }
@@ -35,12 +40,31 @@ class EntryFetchController extends Controller
     }
 
     /**
-     *
+     * Handle facebook-connector/fetch-detail console commands.
      */
     public function actionFetchDetail()
     {
         echo 'Loading data from facebook' . PHP_EOL;
-        $count = FacebookConnector::$plugin->entryPersist->loadEntryDetail();
+        $count = FacebookConnector::$plugin->entryPersist->persistEntryDetails();
         echo 'loaded details for ' . $count . ' entries' . PHP_EOL;
+    }
+
+
+    /**
+     * Handle facebook-connector/up console command
+     */
+    public function actionUp()
+    {
+        $migration = new Install();
+        $migration->safeUp();
+    }
+
+    /**
+     * Handle facebook-connector/down console command
+     */
+    public function actionDown()
+    {
+        $migration = new Install();
+        $migration->safeDown();
     }
 }

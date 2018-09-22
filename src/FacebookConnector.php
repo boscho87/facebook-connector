@@ -87,6 +87,11 @@ class FacebookConnector extends Plugin
         });
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function (RegisterComponentTypesEvent $event) {
+            $errorMessage = Craft::$app->request->get('error_message');
+            if ($errorMessage) {
+                Craft::$app->session->setError($errorMessage);
+            }
+
             if (Craft::$app->request->get('code')) {
                 FacebookConnector::$plugin->tokenLoader->handleCallback();
                 $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
@@ -127,7 +132,7 @@ class FacebookConnector extends Plugin
      */
     protected function settingsHtml(): string
     {
-        return Craft::$app->view->render(
+        return Craft::$app->view->renderTemplate(
             'facebook-connector/settings',
             [
                 'settings' => $this->getSettings()

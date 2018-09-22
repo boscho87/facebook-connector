@@ -22,16 +22,32 @@ use itscoding\facebookconnector\records\FacebookEntry;
 class EntryPersist extends Component
 {
 
+
+    /**
+     * @var EntryParser
+     */
+    private $entryParser;
+
+
+    /**
+     * Init the Class
+     */
+    public function init()
+    {
+        $this->entryParser = new EntryParser();
+        parent::init();
+    }
+
     /**
      * @param \stdClass $entry
      * @codeCoverageIgnore
      */
-    public function persist(\stdClass $entry)
+    public function persistEntry(\stdClass $entry)
     {
         if (!FacebookEntry::findOne(['fbId' => $entry->id])) {
             $fbEntry = new FacebookEntry();
             $fbEntry->fbId = $entry->id;
-            $fbEntry->content = isset($entry->message) ? json_encode($entry->message) : '';
+            $fbEntry->content = $this->entryParser->parseContent($entry->message ?? '');
             $fbEntry->created = strtotime($entry->created_time);
             $fbEntry->has_detail = false;
             $fbEntry->save();
@@ -44,17 +60,16 @@ class EntryPersist extends Component
      * get the attachment and save it to the entry
      * @codeCoverageIgnore
      */
-    public function loadEntryDetail()
+    public function persistEntryDetails()
     {
         $count = 0;
-        $entryParser = new EntryParser();
+
         $entries = FacebookEntry::findAll(['has_detail' => false]);
         foreach ($entries as $entry) {
             $count++;
             $attachment = FacebookConnector::$plugin->entryFetcher->getEntryAttachments($entry->fbId);
-            $entry->title = $entry->title ?? $attachment->title ?? '';
-            $entry = $entryParser->parseEntry($entry, $attachment);
-            //Todo this have to be after entry parse, because type is set after
+            $entry->title = $entry->title ?? '';
+            $entry = $this->entryParser->parseEntry($entry, $attachment);
             if ($entry->type == 'event') {
                 //Todo extract this
                 $eventId = preg_replace('/\d+_{1}/', '', $entry->fbId);

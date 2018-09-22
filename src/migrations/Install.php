@@ -95,6 +95,7 @@ class Install extends Migration
                 [
                     'id' => $this->primaryKey(),
                     'fbId' => $this->string(255)->unique(),
+                    'slug' => $this->string(255)->unique(),
                     'dateCreated' => $this->dateTime()->notNull(),
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'created' => $this->string(255)->notNull(),
