@@ -34,6 +34,9 @@ class EntryFetchController extends Controller
         return 0;
     }
 
+    /**
+     *
+     */
     public function actionFetchDetail()
     {
         echo 'Loading data from facebook' . PHP_EOL;
