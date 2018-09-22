@@ -11,6 +11,7 @@
 namespace itscoding\facebookconnector;
 
 use craft\web\twig\variables\CraftVariable;
+use Facebook\Exceptions\FacebookResponseException;
 use itscoding\facebookconnector\services\ConfigFileLoader;
 use itscoding\facebookconnector\services\EntryPersist as EntryPersistService;
 use itscoding\facebookconnector\services\EntryPoster as EntryPosterService;
@@ -87,20 +88,24 @@ class FacebookConnector extends Plugin
         });
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function (RegisterComponentTypesEvent $event) {
-            $errorMessage = Craft::$app->request->get('error_message');
-            if ($errorMessage) {
-                Craft::$app->session->setError($errorMessage);
-            }
-
+            $errors = [];
+            $errors[] = Craft::$app->request->get('error_message');
             if (Craft::$app->request->get('code')) {
-                FacebookConnector::$plugin->tokenLoader->handleCallback();
-                $errors = FacebookConnector::$plugin->tokenLoader->getErrorMessages();
+                try {
+                    FacebookConnector::$plugin->tokenLoader->handleCallback();
+                } catch (FacebookResponseException $e) {
+                    $errors[] = $e->getMessage();
+                }
+                array_merge($errors, FacebookConnector::$plugin->tokenLoader->getErrorMessages());
+                $errors = array_filter($errors);
+                if ($errors) {
+                    Craft::$app->session->setError(implode(' ', $errors));
+                }
                 if ((!count($errors)) > 0) {
                     Craft::$app->session->setNotice(
                         Craft::t('facebook-connector', 'Loaded a Valid Token')
                     );
                 }
-                Craft::$app->session->setError(implode(' ', $errors));
             }
             $event->types[] = OAuth::class;
         });

@@ -49,16 +49,6 @@ class EntryFetcher extends Component
      */
     private $eventFields = ['start_time', 'end_time', 'cover', 'interested_count'];
 
-
-    public function __construct(
-        TokenLoader $tokenLoader = null
-    )
-    {
-        $this->facebookPageId = FacebookConnector::getInstance()->getSettings()->pageId;
-        parent::__construct();
-    }
-
-
     /**
      * @codeCoverageIgnore
      */

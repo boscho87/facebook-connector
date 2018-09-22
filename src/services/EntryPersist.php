@@ -50,6 +50,7 @@ class EntryPersist extends Component
             $fbEntry->content = $this->entryParser->parseContent($entry->message ?? '');
             $fbEntry->created = strtotime($entry->created_time);
             $fbEntry->has_detail = false;
+
             $fbEntry->save();
             return true;
         }
@@ -70,7 +71,7 @@ class EntryPersist extends Component
             $attachment = FacebookConnector::$plugin->entryFetcher->getEntryAttachments($entry->fbId);
             $entry->title = $entry->title ?? '';
             $entry = $this->entryParser->parseEntry($entry, $attachment);
-            if ($entry->type == 'event') {
+            if ($entry->type === 'event') {
                 //Todo extract this
                 $eventId = preg_replace('/\d+_{1}/', '', $entry->fbId);
                 try {
@@ -85,6 +86,19 @@ class EntryPersist extends Component
                     echo 'event with id: ' . $eventId . ' could not be loaded (maybe its a shared object)';
                 }
             }
+            if ($entry->type === 'album') {
+                if (isset($attachment)) {
+                    $count = '';
+                    //Todo cleanup this mess
+                    foreach ($attachment->subattachments->data as $photo) {
+                        if ($count) {
+                            $entry->image_src{$count} = $photo->media->image->src;
+                        }
+                        $count++;
+                    }
+                }
+            }
+
             $entry->has_detail = true;
             $entry->update();
         }
