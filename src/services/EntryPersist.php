@@ -86,19 +86,21 @@ class EntryPersist extends Component
                     echo 'event with id: ' . $eventId . ' could not be loaded (maybe its a shared object)';
                 }
             }
+            $maxImagesSrc = 6; // there are only properties up to img 6 in the database
             if ($entry->type === 'album') {
                 if (isset($attachment)) {
-                    $count = '';
-                    //Todo cleanup this mess
-                    foreach ($attachment->subattachments->data as $photo) {
-                        if ($count) {
-                            $entry->image_src{$count} = $photo->media->image->src;
+                    foreach ($attachment->subattachments->data as $key => $photo) {
+                        if ($key > $maxImagesSrc) {
+                            break;
                         }
-                        $count++;
+                        if ($key) {
+                            $entry->{'image_src_' . $key} = $photo->media->image->src;
+                            continue;
+                        }
+                        $entry->image_src = $photo->media->image->src;
                     }
                 }
             }
-
             $entry->has_detail = true;
             $entry->update();
         }
