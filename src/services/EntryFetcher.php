@@ -49,6 +49,16 @@ class EntryFetcher extends Component
      */
     private $eventFields = ['start_time', 'end_time', 'cover', 'interested_count'];
 
+
+    public function __construct(
+        TokenLoader $tokenLoader = null
+    )
+    {
+        $this->facebookPageId = FacebookConnector::getInstance()->getSettings()->pageId;
+        parent::__construct();
+    }
+
+
     /**
      * @codeCoverageIgnore
      */
@@ -100,7 +110,7 @@ class EntryFetcher extends Component
      * @return mixed
      * @codeCoverageIgnore
      */
-    public function getEventDetails(string $eventId) : object
+    public function getEventDetails(string $eventId): object
     {
         $response = $this->facebook->get(
             '/' . $eventId . '?fields=' . implode(',', $this->eventFields),
@@ -134,7 +144,7 @@ class EntryFetcher extends Component
      * @return bool
      * @codeCoverageIgnore
      */
-    private function checkIfDateInRange($entries, $latestDate) : bool
+    private function checkIfDateInRange($entries, $latestDate): bool
     {
         $created = end($entries[count($entries) - 1])->created_time;
         return $latestDate < strtotime($created);
@@ -144,7 +154,7 @@ class EntryFetcher extends Component
      * @return string
      * @codeCoverageIgnore
      */
-    private function getApiUrl() : string
+    private function getApiUrl(): string
     {
         return $this->facebook->getClient()->getBaseGraphUrl() . '/' . $this->facebook->getDefaultGraphVersion();
     }

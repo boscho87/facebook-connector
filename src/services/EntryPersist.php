@@ -63,7 +63,7 @@ class EntryPersist extends Component
     public function persistEntryDetails()
     {
         $count = 0;
-
+        //Todo entry persist should not make request to the api!
         $entries = FacebookEntry::findAll(['has_detail' => false]);
         foreach ($entries as $entry) {
             $count++;

@@ -5,4 +5,3 @@ then
 ./vendor/bin/phpcbf  --colors  -w --standard=code_standard.xml  src
     exit 100
 fi
-phpunit

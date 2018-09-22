@@ -50,7 +50,7 @@
   "extra": {
     "name": "FacebookConnector",
     "handle": "facebook-connector",
-    "schemaVersion": "1.2.0",
+    "schemaVersion": "1.3.0",
     "hasCpSettings": true,
     "hasCpSection": false,
     "changelogUrl": "https://raw.githubusercontent.com/boscho87/facebook-connector/version-1.x.x/CHANGELOG.md",

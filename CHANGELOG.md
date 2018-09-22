@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Update
 - Default api is now v3.1
 - The Titles now encoded with json before stored to the database
+- Improved Content Parsing, all Emojis now will be replaced
 
 
 ####  Released
