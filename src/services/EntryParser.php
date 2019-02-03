@@ -142,8 +142,9 @@ class EntryParser
 
         $name = '';
         if (isset($entry->content) && $entry->content) {
-            $pos = strpos($entry->content, ' ', 25);
-            $name = substr($entry->content, 0, $pos);
+            $stringOffset = strlen($entry->content) >= 25 ? 25 : strlen($entry->content);
+            $stringPosition = strpos($entry->content, ' ', $stringOffset);
+            $name = substr($entry->content, 0, $stringPosition);
         }
         $name = preg_replace('/u00\S+/', '', $name);
         $name = strip_tags($name);

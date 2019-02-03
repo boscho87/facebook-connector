@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Unreleased
 
+### 1.3.1
+- Fixed Issue in Entry Parser with makes Fetching fail with content less then 25 Chars.
 
 ### 1.3.0
 ## Update
