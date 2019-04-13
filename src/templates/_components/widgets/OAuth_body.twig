@@ -23,7 +23,7 @@
 <p class="widget-footer">
     <b>{{ 'Has a valid OAuth Token'|t('facebook-connector') }}:</b>
     {{ oAuthStatus  ? 'Yes'|t('facebook-connector')  : 'No'|t('facebook-connector') }}<br><br>
-    <a href="{{ tokenLink }}" class="btn submit" target="_blank" data-icon="refresh">
+    <a href="{{ tokenLink }}" class="btn submit"  data-icon="refresh" target="_self">
         {{ 'Load a new token'|t('facebook-connector') }}
     </a>
 </p>

@@ -123,7 +123,7 @@
         <class name="itscoding\facebookconnector\services\EntryPersist" namespace="itscoding\facebookconnector\services" fullPackage="FacebookConnector" package="FacebookConnector">
           <metrics complexity="8" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="0" elements="46" coveredelements="0"/>
         </class>
-        <line num="28" type="method" name="persist" visibility="public" complexity="3" crap="12" count="0"/>
+        <line num="28" type="method" name="persistEntriy" visibility="public" complexity="3" crap="12" count="0"/>
         <line num="29" type="stmt" count="0"/>
         <line num="30" type="stmt" count="0"/>
         <line num="31" type="stmt" count="0"/>
@@ -136,7 +136,7 @@
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
-        <line num="45" type="method" name="loadEntryDetail" visibility="public" complexity="4" crap="20" count="0"/>
+        <line num="45" type="method" name="persistEntryDetail" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="46" type="stmt" count="0"/>
         <line num="47" type="stmt" count="0"/>
         <line num="48" type="stmt" count="0"/>

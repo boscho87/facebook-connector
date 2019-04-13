@@ -41,7 +41,7 @@ class Settings extends Model
     /**
      * @var string facebook api version
      */
-    public $apiVersion = 'v2.10';
+    public $apiVersion = 'v3.1';
 
     /**
      * Returns the validation rules for attributes.
