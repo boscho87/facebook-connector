@@ -9,7 +9,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### 1.4.0 - 2019-04-16
 - Fixed Issue in Entry Parser with makes Fetching fail with content less then 25 Chars.
 
-### 1.3.0 - 2019-01-21
+### 1.3.2 - 2019-04-16
+- Fixed an Issue with the Entry Parser, because it fails and did not Load images.
+
+### 1.3.1 - 2019-01-01
+- Fixed Issue in Entry Parser with makes Fetching fail with content less then 25 Chars.
+
+### 1.3.0 - 2019-01-01
+
 ## Update
 - Default api is now v3.1
 - The Titles now encoded with json before stored to the database

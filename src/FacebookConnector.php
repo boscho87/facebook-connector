@@ -48,6 +48,8 @@ use yii\base\Event;
 class FacebookConnector extends Plugin
 {
 
+
+    
     /**
      * @var FacebookConnector
      */
