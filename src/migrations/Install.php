@@ -67,7 +67,7 @@ class Install extends Migration
                     'dateCreated' => $this->dateTime()->notNull(),
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'uid' => $this->uid(),
-                    'data' => $this->text()->notNull()->defaultValue(''),
+                    'data' => $this->text(),
                 ]
             );
         }
@@ -95,6 +95,7 @@ class Install extends Migration
                 [
                     'id' => $this->primaryKey(),
                     'fbId' => $this->string(255)->unique(),
+                    'slug' => $this->string(255)->unique(),
                     'dateCreated' => $this->dateTime()->notNull(),
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'created' => $this->string(255)->notNull(),
@@ -105,6 +106,12 @@ class Install extends Migration
                     'event_cover_offset_y' => $this->string(45),
                     'has_detail' => $this->boolean(),
                     'type' => $this->string(),
+                    'image_src_1' => $this->string(510),
+                    'image_src_2' => $this->string(),
+                    'image_src_3' => $this->string(),
+                    'image_src_4' => $this->string(),
+                    'image_src_5' => $this->string(),
+                    'image_src_6' => $this->string(),
                     'image_src' => $this->string(510),
                     'image_height' => $this->string(),
                     'image_width' => $this->string(),

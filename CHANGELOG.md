@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Unreleased
 
+### 1.3.2 - 2019-04-16
+- Fixed an Issue with the Entry Parser, because it fails and did not Load images.
+
+### 1.3.1 - 2019-01-01
+- Fixed Issue in Entry Parser with makes Fetching fail with content less then 25 Chars.
+
+### 1.3.0 - 2019-01-01
+## Update
+- Default api is now v3.1
+- The Titles now encoded with json before stored to the database
+- Improved Content Parsing, all Emojis now will be replaced
+
+
 ####  Released
 ## 1.2.5 - 2018-01-20
 ### Fixed
@@ -14,9 +27,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.2.4 - 2018-01-18
 ### Added
  - Added CI configuration to the Project
- - Dummy PHPUnit test 
+ - Dummy PHPUnit test
+  
 ### Changed
  - removed v from the version numbers
+ 
 ### Fixed
  - Fixed an issue with the configLoader   
 
@@ -58,6 +73,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Contribute Text
 - Added Link to the Youtube Configuration description
+
 ### Fixed
 - Updated the Documentation how its possible to use functions in `fieldconfig.php` #13
   

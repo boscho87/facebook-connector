@@ -65,7 +65,6 @@ class TokenLoader extends Component
     /**
      * FacebookConnector::$plugin->tokenLoader->getFacebookInstance()
      * @return Facebook
-     * @codeCoverageIgnore
      */
     public function getFacebookInstance()
     {

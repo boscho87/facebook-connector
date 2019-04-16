@@ -17,7 +17,10 @@ use itscoding\facebookconnector\services\post\PostHandlerFactory;
 use itscoding\facebookconnector\services\post\PostUpdater;
 use itscoding\facebookconnectortest\BaseTestCase;
 
-
+/**
+ * Class EntryPosterTest
+ * @package itscoding\facebookconnectortest\service
+ */
 class EntryPosterTest extends BaseTestCase
 {
 
@@ -30,6 +33,9 @@ class EntryPosterTest extends BaseTestCase
      */
     private $entryPoster;
 
+    /**
+     * Test Setup
+     */
     public function setUp()
     {
         parent::setUp();
