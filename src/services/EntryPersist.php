@@ -51,7 +51,7 @@ class EntryPersist extends Component
             $fbEntry->fbId = $entry->id;
             $fbEntry->content = $this->entryParser->parseContent($entry->message ?? '');
             $fbEntry->created = strtotime($entry->created_time);
-            $fbEntry->image_src = $entry->full_picture;
+            $fbEntry->image_src = isset($entry->full_picture) ? $entry->full_picture : '';
             $fbEntry->has_detail = false;
             $fbEntry->save();
             return true;
